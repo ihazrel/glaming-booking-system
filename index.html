@@ -1,61 +1,79 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Hotel Reservation System</title>
-    <link rel="stylesheet" href="style.css">
-
-    <script>
-        function searchHotel() {
-          // Declare variables
-          var input, filter, ul, li, a, i;
-          input = document.getElementById("mySearch");
-          filter = input.value.toUpperCase();
-          ul = document.getElementById("myMenu");
-          li = ul.getElementsByTagName("li");
-        
-          // Loop through all list items, and hide those who don't match the search query
-          for (i = 0; i < li.length; i++) {
-            a = li[i].getElementsByTagName("a")[0];
-            if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
-              li[i].style.display = "";
-            } else {
-              li[i].style.display = "none";
-            }
-          }
-        }
-        
-        window.onload = function() {
-          var search = document.getElementById("mySearch");
-          var menu = document.getElementById("myMenu");
-
-          // Initially hide the menu
-          menu.style.display = "none";
-
-          // Show the menu when the search bar is clicked
-          search.addEventListener("focus", function() {
-            menu.style.display = "";
-          });
-
-          // Hide the menu when the search bar is clicked away from
-          search.addEventListener("blur", function() {
-            menu.style.display = "none";
-          });
-        }
-        </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="home-page.css">
 </head>
 <body>
-    <h1>Hotel Reservation System</h1>
+    <div class="hero">
 
-    <div id="searchBar">
-        <form>
-            <input type="text" id="mySearch" onkeyup="searchHotel()" placeholder="Hotel Location">
-            <ul id="myMenu">
-                <li><a href="#"> Mountain</a></li>
-                <li><a href="#">Glaming Beach</a></li>
-                <li><a href="#"> Forest</a></li>
-                <li><a href="#">Glaming City</a></li>
-            </ul>
-        </form>
+        <video autoplay loop muted plays-inline class="back-video">
+            <source src="video/home-vid.mp4" type="video/mp4">
+        </video>
+    <nav>
+        <img src="video/hotel pic.png" class="logo">
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="Bedroom.html">Room</a></li>
+            <li><a href="login.html">Log-In</a></li>
+            <li><a href="sign-up.html">Sign-up</a></li>
+            <li><a href="booking.html">Booking</a></li>
+        </ul>
+    </nav>
+    <div class="content">
+        <h1>Glaming Hotel</h1>
+        <a href="#hotel">Welcome</a>
     </div>
+    </div>
+    
+
+    <section class="container" id="hotel">
+        <h1>Hotels in each state</h1>
+        <div class="cards row">
+            <div class="card row">
+                <div class="card-body">
+                    <div class="title">
+                        <h2>Johor Bahru</h2>
+                    </div>
+                    <p>
+                        Semua isi tentang hotel ini.
+                    </p>
+                </div>
+            </div>
+            <div class="card row">
+                <div class="card-body">
+                    <div class="title">
+                        <h2>Pulau Pinang</h2>
+                    </div>
+                    <p>
+                        Semua isi tentang hotel ini.
+                    </p>
+                </div>
+            </div>
+            <div class="card row">
+                <div class="card-body">
+                    <div class="title">
+                        <h2>Pahang</h2>
+                    </div>
+                    <p>
+                        Semua isi tentang hotel ini.
+                    </p>
+                </div>
+            </div>
+            <div class="card row">
+                <div class="card-body">
+                    <div class="title">
+                        <h2>Selangor</h2>
+                    </div>
+                    <p>
+                        Semua isi tentang hotel ini.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
 </body>
 </html>
