@@ -132,7 +132,7 @@ h1{
     text-align: center;
     overflow: hidden;
     cursor: pointer;
-    background-image: url(./pic/johor.jpg);
+    background-image: url(../pic/johor.jpg);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -149,13 +149,13 @@ h1{
 }
 
 .card:nth-of-type(2) {
-    background-image: url(./pic/Pulau\ pinang.jpg);
+    background-image: url(../pic/Pulau\ pinang.jpg);
 }
 .card:nth-of-type(3) {
-    background-image: url(./pic/pahang.jpeg);
+    background-image: url(../pic/pahang.jpeg);
 }
 .card:nth-of-type(4) {
-    background-image: url(./pic/Selangor.jpeg);
+    background-image: url(../pic/Selangor.jpeg);
 }
 
 .card:hover {
