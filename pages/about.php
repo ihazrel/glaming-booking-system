@@ -6,6 +6,7 @@
     <title>Document</title>
 </head>
 <body>
+    <?php include('nav.php');?>
     This is about hotels
 </body>
 </html>
