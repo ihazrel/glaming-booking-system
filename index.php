@@ -11,7 +11,7 @@
         <video autoplay loop muted plays-inline class="back-video">
             <source src="video/home-vid.mp4" type="video/mp4">
         </video>
-    <?php include('nav.php');?>
+    <?php include('pages/nav_index.php');?>
     <div class="content">
         <h1>Glaming Hotel</h1>
         <a href="#gallery">Welcome</a>
@@ -65,6 +65,5 @@
             </div>
         </section>
     </div>
-    
 </body>
 </html>

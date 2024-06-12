@@ -5,7 +5,7 @@
     font-family: 'Poppins', sans-serif;
 }
 body{
-	background-color: #f4f4f4;
+    background-color: #f4f4f4;
 }
 
 nav{
@@ -33,5 +33,99 @@ nav ul li a{
     text-decoration: none;
     color: #fff;
     font-size: 17px;
-	font-weight: 400;
+    font-weight: 400;
+}
+.info-container{
+    width: 70%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5% auto;
+    gap: 20px;
+}
+form{
+    width: 100%;
+}
+
+.info-bar, .info-date {
+    display: flex;
+    align-items: center;
+    width: auto; /* Adjusts width based on content */
+}
+
+.info-bar {
+    flex-direction: row;
+    padding: 10px 15px;
+    width: 100%;
+    background-color: #e2dddd;
+    border: #000 2px solid;
+    border-radius: 5px;
+    gap: 10px;
+}
+fieldset{
+    padding: 4px 5px;
+    border-radius: 3px;
+}
+fieldset #date{
+    display: flex;
+    flex-direction: row;
+}
+.date{
+    width: calc(50%-10px);
+    height: auto;
+    margin: 0 0;
+}
+
+/* Booking */
+.book-container{
+    width: 70%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: top;
+    margin: 0 auto;
+    gap: 20px;
+}
+
+.book-room{
+    width: 70%;
+    height: auto;
+    padding: 20px;
+    background-color: #e2dddd;
+    border: #000 2px solid;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.book-summary{
+    width: 50%;
+    height: auto;
+    min-height: 200px;
+    padding: 20px;
+    background-color: #e2dddd;
+    border: #000 2px solid;
+    border-radius: 5px;
+    display: sticky;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+hr{
+    width: 70%;
+    margin: 50px auto;
+}
+button #book{
+    width: 100%;
+    height: 40px;
+    padding: 10px;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
