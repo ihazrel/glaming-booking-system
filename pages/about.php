@@ -7,15 +7,7 @@
     <link rel="stylesheet" href="../style/about.css">
 </head>
 <body>
-    <nav>
-        <img src="../pic/LogoHotel.jpg.png" class="logo">
-        <ul>
-            <li><a href="../index.html">Home</a></li>
-            <li><a href="../pages/about.html">About</a></li>
-            <li><a href="../pages/login.html">Log-In</a></li>
-            <li><a href="../pages/sign-up.html">Sign-up</a></li>
-        </ul>
-    </nav>
+<?php include('nav.php');?>
 
     <div class="heading">
         <h1>About Our Hotel</h1>

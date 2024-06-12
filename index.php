@@ -13,18 +13,7 @@
         <video autoplay loop muted plays-inline class="back-video">
             <source src="video/home-vid.mp4" type="video/mp4">
         </video>
-    <nav>
-        <img src="/pic/LogoHotel.jpg.png" class="logo">
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="pages/about.html">About</a></li>
-            <li><a href="pages/roomDisplay.html">Room</a></li>
-            <li><a href="pages/login.html">Log-In</a></li>
-            <li><a href="pages/sign-up.html">Sign-up</a></li>
-            <li><a href="pages/booking_confirm.html">Booking</a></li>
-        </ul>
-    </nav>
-
+    <?php include('pages/nav_index.php');?>
     <div class="content">
         <h1>Glaming Hotel</h1>
         <a href="#gallery">Welcome</a>
