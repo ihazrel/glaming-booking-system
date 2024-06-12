@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../style/sign-up.css">
 </head>
 <body>
-    <?php include('nav.php');?>
+<?php include('nav.php');?>
     <div class="wrapper">
         <h1>Login</h1>
         <form action="#">

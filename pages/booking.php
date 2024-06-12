@@ -7,8 +7,7 @@
     <link rel="stylesheet" href="../style/booking.css">
 </head>
 <body>
-	<?php include('nav.php');?>
-
+<?php include('nav.php');?>
 
     <div class="info-container">
         <form action="" method="post">
