@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="../style/nav.css?<?php echo time(); ?>">
-    <link rel="stylesheet" href="../style/sign-up.css">
+    <link rel="stylesheet" href="../style/signup.css">
 </head>
 <body>
 <?php include('nav.php');?>
@@ -17,7 +17,7 @@
         </form>
         <button>Login</button>
         <div class="member">
-            Not a member? <a href="./sign-up.html">
+            Not a member? <a href="./signup.php">
                 Register Now
             </a>
         </div>

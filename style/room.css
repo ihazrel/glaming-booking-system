@@ -23,6 +23,16 @@ body{
     align-items: center;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
+.filter-bar input[type="submit"]{
+    width: 216px;
+    height: 55.2px;
+    background-color: #b92d2d;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: 600;
+}
 .filter-button{
     display: flex;
     flex-direction: row;
