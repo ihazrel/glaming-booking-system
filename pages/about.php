@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Hotel</title>
+    <link rel="stylesheet" href="../style/nav.css?<?php echo time(); ?>">
     <link rel="stylesheet" href="../style/about.css">
 </head>
 <body>
