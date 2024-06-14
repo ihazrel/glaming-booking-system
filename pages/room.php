@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Room</title>
 	<link rel="stylesheet" href="../style/nav.css?<?php echo time(); ?>">
-	<link rel="stylesheet" href="../style/roomDisplay.css">
+	<link rel="stylesheet" href="../style/room.css">
 	<link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet"/>
 </head>
 <body>
