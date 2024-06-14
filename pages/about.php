@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../style/footer.css">
 </head>
 <body>
-<?php include('nav.php');?>
+<?php include('../util/nav.php');?>
 
     <div class="heading">
         <h1>About Our Hotel</h1>
@@ -26,6 +26,6 @@
             </div>
         </section>
     </div>
-<?php include('footer.php');?>
+<?php include('../util/footer.php');?>
 </body>
 </html>

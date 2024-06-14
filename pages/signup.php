@@ -9,7 +9,7 @@
 
 </head>
 <body>
-    <?php include('nav.php');?>
+<?php include('../util/nav.php');?>
     <div class="wrapper">
         <h1>Sign up</h1>
         <form action="#">

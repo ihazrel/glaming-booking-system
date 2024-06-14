@@ -6,9 +6,10 @@
     <title>Booking form</title>
     <link rel="stylesheet" href="../style/nav.css?<?php echo time(); ?>">
     <link rel="stylesheet" href="../style/booking.css">
+    <link rel="stylesheet" href="../style/footer.css">
 </head>
 <body>
-<?php include('nav.php');?>
+<?php include('../util/nav.php');?>
 <section>
     <div class="info-container">
         <form action="" method="post">
@@ -193,5 +194,6 @@
 	
 </section>
     <script src="../script/booking.js"></script>
+<?php include('../util/footer.php');?>
 </body>
 </html>

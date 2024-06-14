@@ -10,6 +10,7 @@ nav{
     background-color: #b92d2d;
     transition: .4s;
     z-index: 1000;
+    box-shadow: 0 4px 6px -1px #902222;
 }
 
 nav .logo{

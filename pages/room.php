@@ -6,15 +6,16 @@
 	<title>Room</title>
 	<link rel="stylesheet" href="../style/nav.css?<?php echo time(); ?>">
 	<link rel="stylesheet" href="../style/room.css">
+    <link rel="stylesheet" href="../style/footer.css">
 	<link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet"/>
 </head>
 <body>
-	<?php
-	include '../util/db_connect.php';
-	$query="Select * from room order by  room_id Asc";
-	$result = mysqli_query( $link,$query) or die("Query failed");	// SQL statement for checking
-	?>
-	<?php include('nav.php');?>
+<?php
+include '../util/db_connect.php';
+$query="Select * from room order by  room_id Asc";
+$result = mysqli_query( $link,$query) or die("Query failed");	// SQL statement for checking
+?>
+<?php include('../util/nav.php');?>
 
 	<div class="filter-container">
 		<form action="" method="post">
@@ -82,31 +83,37 @@
 
 	<div class="room-container">
 		<?php 
-		while($row = mysqli_fetch_array($result)){?>
+		if(mysqli_num_rows($result) == 0){
+			echo "<h1>No rooms found</h1>";
+		}
+		else{
+			while($row = mysqli_fetch_array($result)){?>
 
-		<div class="room">
-			<div class="room-image">
-				<img src="../pic/suite.png" alt="Lorem Ipsum">
+			<div class="room">
+				<div class="room-image">
+					<img src="../pic/suite.png" alt="Lorem Ipsum">
+				</div>
+				<div class="room-desc">
+					<div class="room-desc-name">
+						<h2><?php echo $row['room_type'];?></h2>
+						<p><?php echo $row['room_pax'];?> pax | Lorem ipsum </p>
+					</div>
+					<div class="room-desc-misc">
+						<?php echo $row['room_desc'];?>	
+						<br><br>
+						Book now for unmatched comfort, prime location, and outstanding service.
+					</div>
+					<div class="room-desc-book">
+						<button onclick="window.location.href='booking.php';">Book Now</button>
+					</div>
+				</div>
 			</div>
-			<div class="room-desc">
-				<div class="room-desc-name">
-					<h2><?php echo $row['room_type'];?></h2>
-					<p><?php echo $row['room_pax'];?> pax | Lorem ipsum </p>
-				</div>
-				<div class="room-desc-misc">
-					<?php echo $row['room_desc'];?>	
-					<br><br>
-					Book now for unmatched comfort, prime location, and outstanding service.
-				</div>
-				<div class="room-desc-book">
-					<button onclick="window.location.href='booking.php';">Book Now</button>
-				</div>
-			</div>
-		</div>
-
 		<?php
+			}
 		}
 		?>
 	</div>
+
+<?php include('../util/footer.php');?>
 </body>
 </html>
