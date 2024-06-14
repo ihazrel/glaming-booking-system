@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Booking Form</title>
+    <link rel="stylesheet" href="../style/nav.css?<?php echo time(); ?>">
     <link rel="stylesheet" href="../style/booking_confirm.css">
 </head>
 <body>
