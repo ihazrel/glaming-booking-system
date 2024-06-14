@@ -9,7 +9,7 @@
 
 <body>
     <div class="hero">
-    <?php include('pages/nav_index.php');?>
+    <?php include('util/nav_index.php');?>
         <video autoplay loop muted plays-inline class="back-video">
             <source src="video/home-vid.mp4" type="video/mp4">
         </video>

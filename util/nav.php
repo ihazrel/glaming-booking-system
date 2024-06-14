@@ -6,6 +6,6 @@
         <li><a href="./room.php">Room</a></li>
         <li><a href="./login.php">Log-In</a></li>
         <li><a href="./booking.php">Booking</a></li>
-        <li><a href="./admin_dashboard.php">Admin</a></li>
+        <li><a href="./admin_hotel.php">Admin</a></li>
     </ul>
 </nav>

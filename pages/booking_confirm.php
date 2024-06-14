@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../style/booking_confirm.css">
 </head>
 <body>
-<?php include('nav.php');?>
+<?php include('../util/nav.php');?>
     
     <div class="background">
         <div class="booking-form">

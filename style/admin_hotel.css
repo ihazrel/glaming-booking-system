@@ -1,0 +1,244 @@
+html{
+    scroll-behavior: smooth;
+}
+html,body{
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+body{
+	background-color: #f4f4f4;
+}
+nav{
+    position: fixed;
+}
+
+.ac-sidebar{
+    height: 100%;
+    width: 17%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #b92d2d;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+.ac-sidebar ul{
+    list-style-type: none;
+    padding: 90px 0 0 0;
+}
+.ac-sidebar ul li{
+    display: flex;
+    flex-direction: row;
+    margin: 30px 0;
+    width: 100%;
+}
+.ac-sidebar a{
+    display: block;
+    text-decoration: none;
+    color: #ffff;
+    font-size: 1.4em;
+    font-weight:550;
+    width: 100%;
+    padding: 0 10%;
+    transition: .4s;
+}
+.ac-sidebar a i{
+    margin-right: 10px;
+}
+.ac-sidebar a:hover{
+    color: #000;
+}
+.ac-sidebar a.active{
+    background-color: #ffff;
+    color: #000;
+}
+
+/* Main content */
+.main{
+    padding-top: 90px;
+    margin-left: 17%;
+}
+.content{
+    width: 75%;
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    padding: 2%;
+    margin: 7% 10%;
+    background-color: #ffffff;
+    border-radius: 10px;
+    border: #8b8b8b 1px solid;
+}
+.content-head{
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 20px;
+}
+.content-head button{
+    padding: 7px 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #ffffff;
+    border: #000000 2px solid;
+    color: #b92d2d;
+    font-size: 1.2em;
+    font-weight: 500;
+    cursor: pointer;
+    transition: .4s;
+}
+.content-head button:hover{
+    background-color: #b92d2d;
+    color: #ffffff;
+    border: #b92d2d 2px solid;
+}
+.content-head form{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 20px;
+
+}
+input[type="text"]{
+    padding: 7px 10px;
+    border: #000000 2px solid;
+    border-radius: 5px;
+    font-size: 1.2em;
+    font-weight: 500;
+    transition: .2s;
+}
+input[type="text"]:hover{
+    border: #b92d2d 2px solid;
+}
+input[type="text"]:focus{
+    outline: none;
+}
+.content-table{
+    margin: 5% auto;
+    width: 100%;
+}
+table{
+    width: 100%;
+    border-collapse: collapse;
+}
+th, td{
+    width: auto;
+    border: none ;
+    border-collapse: collapse;
+}
+th {
+    color: #000;
+    padding: 10px;
+    text-align: start;
+    padding-left: 20px;
+}
+th:last-child {
+    background-color: transparent;
+    color: inherit;
+    border: none;
+    padding: inherit;
+}
+td:last-child{
+    border: none;
+}
+td{
+    padding: 10px;
+    padding-left: 20px;
+    text-align: start;
+}
+table td {
+    width: 100px; /* Adjust the width as needed */
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis; /* Adds an ellipsis (...) to indicate hidden overflow text */
+}
+tr:nth-child(odd) {
+    background-color: #f0f0f0;
+}
+
+table button{
+    border: none;
+    background-color: transparent;
+    color: #000;
+    font-size: 1.5em;
+    font-weight: 500;
+    cursor: pointer;
+    transition: .4s;
+}
+table button.delete:hover{color: #b92d2d;}
+table button.edit:hover{color: #c78a21;}
+/* Add to your existing CSS */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 75%;
+    text-align: center; /* Could be more or less, depending on screen size */
+}
+.modal form{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+.modal form input:hover{
+    border: #000000 2px solid;
+}
+.cancel-button,
+.save-button{
+    width: 8%;
+    padding: 7px 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #ffffff;
+    border: #63b92d 2px solid;
+    color: #000;
+    font-size: 1.2em;
+    font-weight: 500;
+    cursor: pointer;
+    transition: .4s;
+}
+.cancel-button{border: #b92d2d 2px solid;}
+
+.cancel-button:hover,
+.save-button:hover{
+    background-color: #46841f;
+    color: #fff;
+    border: transparent 2px solid;
+}
+.cancel-button:hover{background-color: #b92d2d;}
+.button-container{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 20px;
+}
