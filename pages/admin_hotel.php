@@ -65,7 +65,7 @@
                     <td><?php echo $counter++; ?></td>
                     <td><?php echo $row['hotel_id'];?></td>
                     <td><?php echo $row['hotel_location'];?></td>
-                    <td><?php echo $row['hotel_desc'];?></td>
+                    <td style="max-width: 516px ; text-overflow: ellipsis; white-space: nowrap;"><?php echo $row['hotel_desc'];?></td>
                     <td><button class="edit" data-id="<?php echo $row['hotel_id'];?>" data-location="<?php echo htmlspecialchars($row['hotel_location'], ENT_QUOTES);?>" data-desc="<?php echo htmlspecialchars($row['hotel_desc'], ENT_QUOTES);?>"><i class="ri-pencil-line"></i></button>
                     <button class="delete"><i class="ri-delete-bin-line"></i></button></td>
                 </tr>
