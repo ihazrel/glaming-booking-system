@@ -1,5 +1,5 @@
 <nav>
-    <img src="pic/LogoHotel.jpg.png" class="logo">
+    <img src="../pic/LogoHotel.png" class="logo">
     <ul>
         <li><a href="index.php">Home</a></li>
         <li><a href="pages/about.php">About</a></li>
