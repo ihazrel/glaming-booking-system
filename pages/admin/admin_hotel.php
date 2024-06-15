@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="../../style/nav.css">
+    <link rel="stylesheet" href="../../style/sidebar.css">
     <link rel="stylesheet" href="../../style/admin_hotel.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet"/>
 </head>
@@ -15,15 +16,7 @@
 	$result = mysqli_query( $link,$query) or die("Query failed");	// SQL statement for checking
 	?>
 <?php include('../../util/nav_admin.php');?>
-<div class="ac-sidebar">
-    <ul>
-        <li><a href="./admin_dashboard.php"><i class="ri-dashboard-line"></i>Dashboard</a></li>
-        <li><a href="./admin_hotel.php"><i class="ri-community-line"></i>Hotel</a></li>
-        <li><a href="./admin_room.php"><i class="ri-hotel-bed-line"></i>Room</a></li>
-        <li><a href="./admin_user.php"><i class="ri-user-line"></i>User</a></li>
-        <li><a href="./admin_booking.php"><i class="ri-book-read-line"></i>Booking</a></li>
-    </ul>
-</div>
+<?php include('../../util/sidebar.php')?>
 <div class="main">
     <div class="content">
         <div class="content-head">
@@ -53,7 +46,7 @@
                     <th style="width: 7%;">No</th>
                     <th style="width: 7%;">ID</th>
                     <th style="width: 15%;">Location</th>
-                    <th>Desc</th>
+                    <th>Description</th>
                     <th style="width: 5%;"></th>
                 </tr>
                 <?php
@@ -131,14 +124,13 @@ document.addEventListener('DOMContentLoaded', function() {
     // Code to display the create modal
         document.getElementById('createModal').style.display = 'block';
     });
-
     document.querySelector('#createForm #create-button').addEventListener('click', function(event) {
         event.preventDefault();
 
         var formData = new FormData(document.getElementById('createForm'));
 
         var xhr = new XMLHttpRequest();
-        xhr.open("POST", "../../util/hotel_create.php", true);
+        xhr.open("POST", "../../util/hotel/hotel_create.php", true);
 
         xhr.onload = function() {
             if (xhr.status >= 200 && xhr.status < 300) {
@@ -175,14 +167,13 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('editModal').style.display = 'block';
         });
     });
-
     document.querySelector('#editForm #edit-button').addEventListener('click', function(event) {
         event.preventDefault();
 
         var formData = new FormData(document.getElementById('editForm'));
 
         var xhr = new XMLHttpRequest();
-        xhr.open("POST", "../../util/hotel_edit.php", true);
+        xhr.open("POST", "../../util/hotel/hotel_edit.php", true);
 
         xhr.onload = function() {
             if (xhr.status >= 200 && xhr.status < 300) {
@@ -214,7 +205,6 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('deleteModal').style.display = 'block';
         });
     });
-
     document.querySelector('#deleteModal #delete-button').addEventListener('click', function() {
         var hotelID = this.getAttribute('data-id');
 
@@ -222,7 +212,7 @@ document.addEventListener('DOMContentLoaded', function() {
         formData.append('hotelID', hotelID);
 
         var xhr = new XMLHttpRequest();
-        xhr.open("POST", "../../util/hotel_delete.php", true);
+        xhr.open("POST", "../../util/hotel/hotel_delete.php", true);
 
         xhr.onload = function() {
             if (xhr.status >= 200 && xhr.status < 300) {
@@ -241,6 +231,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         xhr.send(formData);
     });
+    
     // JavaScript to close the modal
     document.querySelectorAll('.cancel-button').forEach(button => {
         button.addEventListener('click', function(event) {
