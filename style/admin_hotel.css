@@ -18,6 +18,40 @@ body{
 nav{
     position: fixed;
 }
+.alert {
+    display: block;
+    position: fixed;
+    padding: 20px;
+    background-color: #f44336;
+    color: white;
+    opacity: 1;
+    z-index: 999;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+  
+  .alert.success {background-color: #04AA6D;}
+  .alert.info {background-color: #2196F3;}
+  .alert.warning {background-color: #ff9800;}
+  
+  .closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .closebtn:hover {
+    color: black;
+  }
 
 .ac-sidebar{
     height: 100%;
@@ -129,6 +163,7 @@ input[type="text"]:focus{
 .content-table{
     margin: 5% auto;
     width: 100%;
+    overflow: auto;
 }
 table{
     width: 100%;
@@ -195,12 +230,15 @@ table button.edit:hover{color: #c78a21;}
 }
 
 .modal-content {
-    background-color: #fefefe;
-    margin: 15% auto; /* 15% from the top and centered */
+    background-color: #fefefe; /* 15% from the top and centered */
     padding: 20px;
     border: 1px solid #888;
     width: 75%;
-    text-align: center; /* Could be more or less, depending on screen size */
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 .modal form{
     display: flex;
@@ -212,7 +250,8 @@ table button.edit:hover{color: #c78a21;}
     border: #000000 2px solid;
 }
 .cancel-button,
-.save-button{
+.save-button,
+.delete-button{
     width: 8%;
     padding: 7px 10px;
     border: none;
@@ -228,7 +267,8 @@ table button.edit:hover{color: #c78a21;}
 .cancel-button{border: #b92d2d 2px solid;}
 
 .cancel-button:hover,
-.save-button:hover{
+.save-button:hover,
+.delete-button:hover{
     background-color: #46841f;
     color: #fff;
     border: transparent 2px solid;
@@ -241,4 +281,13 @@ table button.edit:hover{color: #c78a21;}
     justify-content: flex-end;
     align-items: center;
     gap: 20px;
+}
+.modal#deleteModal .modal-content{
+    width: 25%;
+} 
+.modal#deleteModal .button-container{
+    justify-content: center;
+}
+.modal#deleteModal .button-container button{
+    width: 30%;
 }

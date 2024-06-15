@@ -4,17 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="../style/nav.css?<?php echo time(); ?>">
-    <link rel="stylesheet" href="../style/admin_hotel.css">
+    <link rel="stylesheet" href="../../style/nav.css?<?php echo time(); ?>">
+    <link rel="stylesheet" href="../../style/admin_hotel.css">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet"/>
 </head>
 <body>
 <?php
-	include '../util/db_connect.php';
+	include '../../util/db_connect.php';
 	$query="Select * from user order by  user_id Asc";
 	$result = mysqli_query( $link,$query) or die("Query failed");	// SQL statement for checking
 	?>
-<?php include('../util/nav.php');?>
+<?php include('../../util/nav_admin.php');?>
 <div class="ac-sidebar">
     <ul>
         <li><a href="./admin_dashboard.php"><i class="ri-dashboard-line"></i>Dashboard</a></li>
