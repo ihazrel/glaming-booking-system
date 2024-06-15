@@ -1,13 +1,14 @@
 <?php
-include './db_connect.php';
+include '../db_connect.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
-    $hotelID = $_POST['hotelID'] ?? '';
-    $hotelLocation = $_POST['hotelLocation'] ?? '';
-    $hotelDesc = $_POST['hotelDesc'] ?? '';
+    $roomID = $_POST['roomID'] ?? '';
+    $roomType = $_POST['roomType'] ?? '';
+    $roomDesc = $_POST['roomDesc'] ?? '';
+    $roomPax = $_POST['roomPax'] ?? '';
 
-    $query = "UPDATE hotel SET hotel_location = '$hotelLocation', hotel_desc = '$hotelDesc' WHERE hotel_id = '$hotelID'";
+    $query = "UPDATE room SET room_type = '$roomType', room_desc = '$roomDesc', room_pax = '$roomPax' WHERE room_id = '$roomID'";
     $result = mysqli_query($link, $query) or die("Query failed");
 
     if ($result) {
