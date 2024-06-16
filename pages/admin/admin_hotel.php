@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -42,7 +42,7 @@
 
         <div class="content-table">
             <table>
-                <tr>
+                <tr style="background-color: #b92d2d">
                     <th style="width: 7%;">No</th>
                     <th style="width: 7%;">ID</th>
                     <th style="width: 15%;">Location</th>

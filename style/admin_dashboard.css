@@ -1,0 +1,90 @@
+html{
+    scroll-behavior: smooth;
+}
+html,body{
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+body{
+	background-color: #f4f4f4;
+}
+nav{
+    position: fixed;
+}
+#summary{grid-area: summary;}
+#revenue{grid-area: revenue;}
+#customer{grid-area: customer;}
+
+/* Main content */
+.main{
+    padding-top: 90px; /* Adjust if there's a fixed header */
+    margin-left: 17%;
+    height: calc(100vh - 90px); /* Adjust the 90px if there's a different fixed header/footer height */
+    overflow-y: auto; /* Allows scrolling within .main if content exceeds its height */
+}
+.content{
+    width: 90%;
+    min-height: 60vh; /* Ensures content has a minimum height */
+    flex-grow: 1; /* Allows content to expand and fill the available space */
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    margin: 7% auto;
+}
+.summary-header{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+    gap: 20px;
+}
+.summary-header > div{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+    width: 30%;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    margin-bottom: 20px;
+    gap: 20px;
+    text-wrap: nowrap;
+}
+.summary-body{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px;
+    gap: 20px;
+}
+.summary-body > div{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    text-align: center;
+    width: 50%;
+    min-height: 30vh;
+    border-radius: 10px;
+    padding: 4%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    text-wrap: nowrap;
+    gap: 3vh;
+}

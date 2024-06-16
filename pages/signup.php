@@ -10,21 +10,23 @@
 </head>
 <body>
 <?php include('../util/nav.php');?>
-    <div class="wrapper">
-        <h1>Sign up</h1>
-        <form action="#">
-            <input type="text" placeholder="Username">
-            <input type="text" placeholder="name">
-            <input type="password" placeholder="Password">
-            <input type="password" placeholder="Re-Enter password">
-        </form>
-        ><button>Sign up</button>
-        <div class="member">
-            Already a member? <a href="login.php">
-                Login Here
-            </a>
+    <div class="content">
+        <div class="wrapper">
+            <h1>Sign up</h1>
+            <form action="#">
+                <input type="text" placeholder="Username">
+                <input type="text" placeholder="name">
+                <input type="password" placeholder="Password">
+                <input type="password" placeholder="Re-Enter password">
+            </form>
+            <button>Sign up</button>
+            <div class="member">
+                Already a member? <a href="login.php">
+                    Login Here
+                </a>
+            </div>
         </div>
-    </div>
+    </div style="display:grid;place-content:center;">
     
 </body>
 </html>
