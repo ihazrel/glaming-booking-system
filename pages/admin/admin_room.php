@@ -42,7 +42,7 @@
 
         <div class="content-table">
             <table>
-                <tr>
+                <tr style="background-color: #b92d2d">
                     <th style="width: 7%;">No</th>
                     <th style="width: 7%;">ID</th>
                     <th style="width: 15%;">Type</th>

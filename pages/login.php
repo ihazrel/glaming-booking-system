@@ -9,19 +9,21 @@
 </head>
 <body>
 <?php include('../util/nav.php');?>
-    <div class="wrapper">
-        <h1>Login</h1>
-        <form action="#">
-            <input type="text" placeholder="Username">
-            <input type="password" placeholder="Password">
-        </form>
-        <button>Login</button>
-        <div class="member">
-            Not a member? <a href="./signup.php">
-                Register Now
-            </a>
+    <div class="content">
+        <div class="wrapper">
+            <h1>Login</h1>
+            <form action="#">
+                <input type="text" placeholder="Username">
+                <input type="password" placeholder="Password">
+            </form>
+            <button>Login</button>
+            <div class="member">
+                Not a member? <a href="./signup.php">
+                    Register Now
+                </a>
+            </div>
         </div>
-    </div>
+    </div class="content">
     
 </body>
 </html>
