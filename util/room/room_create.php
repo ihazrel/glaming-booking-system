@@ -7,8 +7,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $roomType = $_POST['roomType'] ?? '';
     $roomDesc = $_POST['roomDesc'] ?? '';
     $roomPax = $_POST['roomPax'] ?? '';
+    $roomPrice = $_POST['roomPrice'] ?? '';
 
-    $query = "INSERT INTO room (room_id, room_type, room_desc, room_pax) VALUES ('$roomID', '$roomType', '$roomDesc', '$roomPax')";
+    $query = "INSERT INTO room (room_type, room_desc, room_pax, room_price) VALUES ('$roomType', '$roomDesc', '$roomPax', '$roomPrice')";
     $result = mysqli_query($link, $query) or die("Query failed");
 
     if ($result) {

@@ -20,34 +20,51 @@
 <div class="main">
     <div class="content">
         <div class="summary-header">
+
             <div class="card">
                 <div class="card-header"><i class="ri-calendar-fill ri-3x"></i></div>
                 <div class="card-content">
-                    <h1><?php echo mysqli_num_rows($result)?></h1>
+                    <h1><?php 
+                            $query="Select * from booking";
+                            $result = mysqli_query( $link,$query) or die("Query failed");
+                            echo mysqli_num_rows($result)?></h1>
                     <h3>Booking</h3>
                 </div>
             </div>
+
             <div class="card">
                 <div class="card-header"><i class="ri-wallet-fill ri-3x"></i></div>
                 <div class="card-content">
-                    <h1><?php echo mysqli_num_rows($result)?></h1>
+                    <h1><?php
+                            $query="Select * from booking";
+                            $result = mysqli_query( $link,$query) or die("Query failed"); 
+                            echo mysqli_num_rows($result)?></h1>
                     <h3>Revenue</h3>
                 </div>
             </div>
+
             <div class="card">
                 <div class="card-header"><i class="ri-user-fill ri-3x"></i></i></div>
                 <div class="card-content">
-                    <h1>0</h1>
+                    <h1><?php
+                            $query="Select * from client";
+                            $result = mysqli_query( $link,$query) or die("Query failed"); 
+                            echo mysqli_num_rows($result)?></h1>
                     <h3>Users</h3>
                 </div>
             </div>
+
             <div class="card">
                 <div class="card-header"><i class="ri-hotel-bed-fill ri-3x"></i></i></div>
                 <div class="card-content">
-                    <h1><?php echo mysqli_num_rows($result)?></h1>
+                    <h1><?php 
+                            $query="Select * from room";
+                            $result = mysqli_query( $link,$query) or die("Query failed");
+                            echo mysqli_num_rows($result)?></h1>
                     <h3>Rooms available</h3>
                 </div>
             </div>
+            
         </div>
         <div class="summary-body">
             <div class="card">

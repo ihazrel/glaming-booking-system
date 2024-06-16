@@ -30,7 +30,7 @@
     transition: .4s;
 }
 .ac-sidebar a i{
-    margin-right: 10px;
+    margin-right:10%;
 }
 .ac-sidebar a:hover{
     color: #000;

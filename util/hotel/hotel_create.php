@@ -4,10 +4,11 @@ include '../db_connect.php';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
     $hotelID = $_POST['hotelID'] ?? '';
+    $hotelName = $_POST['hotelName'] ??'';
     $hotelLocation = $_POST['hotelLocation'] ?? '';
     $hotelDesc = $_POST['hotelDesc'] ?? '';
 
-    $query = "INSERT INTO hotel (hotel_id, hotel_location, hotel_desc) VALUES ('$hotelID', '$hotelLocation', '$hotelDesc')";
+    $query = "INSERT INTO hotel (hotel_name, hotel_location, hotel_desc) VALUES ('$hotelName', '$hotelLocation', '$hotelDesc')";
     $result = mysqli_query($link, $query) or die("Query failed");
 
     if ($result) {

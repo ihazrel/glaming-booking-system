@@ -34,7 +34,7 @@
 
             $query = "SELECT * FROM room";
             if ($searchKey != null) {
-                $query .= " WHERE room_id = '$searchKey' or room_type like '%$searchKey%' or room_desc like '%$searchKey%' or room_pax = '$searchKey'";
+                $query .= " room_type like '%$searchKey%' or room_desc like '%$searchKey%' or room_pax = '$searchKey' or room_price = '$searchKey'";
             }
 
         	$result = mysqli_query($link, $query) or die("Query failed");
@@ -44,10 +44,10 @@
             <table>
                 <tr style="background-color: #b92d2d">
                     <th style="width: 7%;">No</th>
-                    <th style="width: 7%;">ID</th>
-                    <th style="width: 15%;">Type</th>
+                    <th style="width: 20%;">Type</th>
                     <th>Description</th>
                     <th style="width: 7%;">Pax</th>
+                    <th style="width: 15%;">Price</th>
                     <th style="width: 5%;"></th>
                 </tr>
                 <?php
@@ -56,11 +56,13 @@
 
                 <tr>
                     <td><?php echo $counter++; ?></td>
-                    <td><?php echo $row['room_id'];?></td>
                     <td style="max-width: 100px ; text-overflow: ellipsis; white-space: nowrap;"><?php echo $row['room_type'];?></td>
                     <td style="max-width: 450px ; text-overflow: ellipsis; white-space: nowrap;"><?php echo $row['room_desc'];?></td>
                     <td><?php echo $row['room_pax'];?></td>
-                    <td><button class="edit" data-id="<?php echo $row['room_id'];?>" data-type="<?php echo htmlspecialchars($row['room_type'], ENT_QUOTES);?>" data-desc="<?php echo htmlspecialchars($row['room_desc'], ENT_QUOTES);?>" data-pax="<?php echo $row['room_pax'];?>"><i class="ri-pencil-line"></i></button>
+                    <td>RM<?php echo $row['room_price'];?></td>
+                    <td><button class="edit" data-id="<?php echo $row['room_id'];?>" data-type="<?php echo htmlspecialchars($row['room_type'], ENT_QUOTES);?>" 
+                              data-desc="<?php echo htmlspecialchars($row['room_desc'], ENT_QUOTES);?>" data-pax="<?php echo $row['room_pax'];?>" 
+                              data-price="<?php echo $row['room_price'];?>"><i class="ri-pencil-line"></i></button>
                     <button class="delete" data-id="<?php echo $row['room_id'];?>"><i class="ri-delete-bin-line"></i></button></td>
                 </tr>
                 <?php } ?>
@@ -79,11 +81,11 @@
     <div id="createModal" class="modal">
         <div class="modal-content">
             <h3 style="margin: 10px;">Create New Hotel</h3>
-            <form id="createForm" class="createForm" method="POST">
-                <input type="text" id="roomID" name="roomID" placeholder="ID">   
+            <form id="createForm" class="createForm" method="POST"> 
                 <input type="text" id="roomType" name="roomType" placeholder="Type">
                 <input type="text" id="roomDesc" name="roomDesc" placeholder="Description">
                 <input type="text" id="roomPax" name="roomPax" placeholder="Pax">
+                <input type="text" id="roomPrice" name="roomPrice" placeholder="Price">
                 <div class="button-container">
                     <button class="cancel-button"><i class="ri-close-line"></i></button>
                     <button id="create-button" type="submit" class="save-button"><i class="ri-save-3-line"></i></button>
@@ -96,11 +98,11 @@
         <div class="modal-content">
             <h3 style="margin: 10px;">Edit Hotel</h3>
             <form id="editForm" class="editForm" method="POST">
-                <input type="text" id="roomID" name="roomID" disabled>
                 <input type="hidden" id="hiddenroomID" name="roomID">    
                 <input type="text" id="roomType" name="roomType">
                 <input type="text" id="roomDesc" name="roomDesc">
                 <input type="text" id="roomPax" name="roomPax">
+                <input type="text" id="roomPrice" name="roomPrice">
                 <div class="button-container">
                     <button class="cancel-button"><i class="ri-close-line"></i></button>
                     <button id="edit-button" type="submit" class="save-button"><i class="ri-save-3-line"></i></button>
@@ -163,12 +165,13 @@ document.addEventListener('DOMContentLoaded', function() {
             const roomType = this.getAttribute('data-type');
             const roomDesc = this.getAttribute('data-desc');
             const roomPax = this.getAttribute('data-pax');
+            const roomPrice = this.getAttribute('data-price');
 
-            document.querySelector('#editModal #roomID').value = roomID;
             document.querySelector('#editModal #hiddenroomID').value = roomID;
             document.querySelector('#editModal #roomType').value = roomType;
             document.querySelector('#editModal #roomDesc').value = roomDesc;
             document.querySelector('#editModal #roomPax').value = roomPax;
+            document.querySelector('#editModal #roomPrice').value = roomPrice;
 
             document.getElementById('editModal').style.display = 'block';
         });
