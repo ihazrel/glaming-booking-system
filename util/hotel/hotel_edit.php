@@ -4,10 +4,11 @@ include '../db_connect.php';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
     $hotelID = $_POST['hotelID'] ?? '';
+    $hotelName = $_POST['hotelName'] ??'';
     $hotelLocation = $_POST['hotelLocation'] ?? '';
     $hotelDesc = $_POST['hotelDesc'] ?? '';
 
-    $query = "UPDATE hotel SET hotel_location = '$hotelLocation', hotel_desc = '$hotelDesc' WHERE hotel_id = '$hotelID'";
+    $query = "UPDATE hotel SET hotel_name = '$hotelName', hotel_location = '$hotelLocation', hotel_desc = '$hotelDesc' WHERE hotel_id = '$hotelID'";
     $result = mysqli_query($link, $query) or die("Query failed");
 
     if ($result) {

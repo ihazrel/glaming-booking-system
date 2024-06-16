@@ -3,12 +3,14 @@ include '../db_connect.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
-    $userID = $_POST['userID'] ?? '';
-    $userUsername = $_POST['userUsername'] ?? '';
-    $userPassword = $_POST['userPassword'] ?? '';
-    $userAdmin = $_POST['userIsAdmin'] ?? '';
+    $clientID = $_POST['clientID'] ?? '';
+    $clientUsername = $_POST['clientUsername'] ?? '';
+    $clientEmail = $_POST['clientEmail'] ?? '';
+    $clientPassword = $_POST['clientPassword'] ?? '';
+    $clientName = $_POST['clientName'] ?? '';
+    $clientPhone = $_POST['clientPhone'] ?? '';
 
-    $query = "UPDATE user SET user_username = '$userUsername', user_password = '$userPassword', user_isAdmin = '$userAdmin' WHERE user_id = '$userID'";
+    $query = "INSERT INTO client (client_username,client_email, client_password, client_name, client_phone) VALUES ('$clientUsername', '$clientEmail', '$clientPassword', '$clientName', '$clientPhone')";
     $result = mysqli_query($link, $query) or die("Query failed");
 
     if ($result) {

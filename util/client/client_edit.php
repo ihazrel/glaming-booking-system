@@ -3,9 +3,14 @@ include '../db_connect.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
-    $userID = $_POST['userID'] ?? '';
+    $clientID = $_POST['clientID'] ?? '';
+    $clientUsername = $_POST['clientUsername'] ?? '';
+    $clientEmail = $_POST['clientEmail'] ?? '';
+    $clientPassword = $_POST['clientPassword'] ?? '';
+    $clientName = $_POST['clientName'] ?? '';
+    $clientPhone = $_POST['clientPhone'] ?? '';
 
-    $query = "DELETE FROM user WHERE user.user_id = '$userID'";
+    $query = "UPDATE client SET client_username = '$clientUsername', client_email = '$clientEmail', client_password = '$clientPassword', client_name = '$clientName', client_phone = '$clientPhone' WHERE client_id = '$clientID'";
     $result = mysqli_query($link, $query) or die("Query failed");
 
     if ($result) {

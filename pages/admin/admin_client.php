@@ -12,7 +12,7 @@
 <body>
 <?php
 	include '../../util/db_connect.php';
-	$query="Select * from user";
+	$query="Select * from client";
 	$result = mysqli_query( $link,$query) or die("Query failed");	// SQL statement for checking
 	?>
 <?php include('../../util/nav_admin.php');?>
@@ -32,9 +32,9 @@
                 $searchKey = isset($_POST['searchKey']) ? $_POST['searchKey'] : 'all';
             }
 
-            $query = "SELECT * FROM user";
+            $query = "SELECT * FROM client";
             if ($searchKey != null) {
-                $query .= " WHERE user_id = '$searchKey' or user_username like '%$searchKey%'";
+                $query .= " WHERE client_username = '$searchKey' or client_email like '%$searchKey%' or client_name like '%$searchKey%' or client_phone = '$searchKey'";
             }
 
         	$result = mysqli_query($link, $query) or die("Query failed");
@@ -44,10 +44,11 @@
             <table>
                 <tr style="background-color: #b92d2d">
                     <th style="width: 7%;">No</th>
-                    <th style="width: 7%;">ID</th>
                     <th>Username</th>
+                    <th>Email</th>
                     <th>Password</th>
-                    <th>isAdmin</th>
+                    <th>Name</th>
+                    <th>Phone</th>
                     <th style="width: 5%;"></th>
                 </tr>
                 <?php
@@ -56,12 +57,13 @@
 
                 <tr>
                     <td><?php echo $counter++; ?></td>
-                    <td><?php echo $row['user_id'];?></td>
-                    <td><?php echo $row['user_username'];?></td>
-                    <td><?php echo $row['user_password'];?></td>
-                    <td><?php if($row['user_isAdmin'] == 1) echo 'True'; else echo 'False';?></td>
-                    <td><button class="edit" data-id="<?php echo $row['user_id'];?>" data-username="<?php echo htmlspecialchars($row['user_username'], ENT_QUOTES);?>" data-password="<?php echo htmlspecialchars($row['user_password'], ENT_QUOTES);?>" data-admin="<?php echo $row['user_isAdmin'];?>"><i class="ri-pencil-line"></i></button>
-                    <button class="delete" data-id="<?php echo $row['user_id'];?>"><i class="ri-delete-bin-line"></i></button></td>
+                    <td><?php echo $row['client_username'];?></td>
+                    <td><?php echo $row['client_email'];?></td>
+                    <td><?php echo $row['client_password'];?></td>
+                    <td><?php echo $row['client_name'];?></td>
+                    <td><?php echo $row['client_phone'];?></td>
+                    <td><button class="edit" data-id="<?php echo $row['client_id'];?>" data-username="<?php echo htmlspecialchars($row['client_username'], ENT_QUOTES);?>" data-email="<?php echo htmlspecialchars($row['client_email'])?>" data-password="<?php echo htmlspecialchars($row['client_password'], ENT_QUOTES);?>" data-name="<?php echo $row['client_name'];?>" data-phone="<?php echo $row['client_phone']?>"><i class="ri-pencil-line"></i></button>
+                    <button class="delete" data-id="<?php echo $row['client_id'];?>"><i class="ri-delete-bin-line"></i></button></td>
                 </tr>
                 <?php } ?>
             </table>
@@ -80,10 +82,11 @@
         <div class="modal-content">
             <h3 style="margin: 10px;">Create New Hotel</h3>
             <form id="createForm" class="createForm" method="POST">
-                <input type="text" id="userID" name="userID" placeholder="ID">   
-                <input type="text" id="userUsername" name="userUsername" placeholder="Username">
-                <input type="text" id="userPassword" name="userPassword" placeholder="Password">
-                <input type="text" id="userIsAdmin" name="userIsAdmin" placeholder="Is Admin">
+                <input type="text" id="clientUsername" name="clientUsername" placeholder="Username">
+                <input type="text" id="clientEmail" name="clientEmail" placeholder="Email">
+                <input type="text" id="clientPassword" name="clientPassword" placeholder="Password">
+                <input type="text" id="clientName" name="clientName" placeholder="Name">
+                <input type="text" id="clientPhone" name="clientPhone" placeholder="Phone">
                 <div class="button-container">
                     <button class="cancel-button"><i class="ri-close-line"></i></button>
                     <button id="create-button" type="submit" class="save-button"><i class="ri-save-3-line"></i></button>
@@ -96,11 +99,12 @@
         <div class="modal-content">
             <h3 style="margin: 10px;">Edit Hotel</h3>
             <form id="editForm" class="editForm" method="POST">
-                <input type="text" id="userID" name="userID" disabled>
-                <input type="hidden" id="hiddenuserID" name="userID">    
-                <input type="text" id="userUsername" name="userUsername">
-                <input type="text" id="userPassword" name="userPassword">
-                <input type="text" id="userIsAdmin" name="userIsAdmin">
+                <input type="hidden" id="hiddenclientID" name="clientID">   
+                <input type="text" id="clientUsername" name="clientUsername">
+                <input type="text" id="clientEmail" name="clientEmail">
+                <input type="text" id="clientPassword" name="clientPassword">
+                <input type="text" id="clientName" name="clientName">
+                <input type="text" id="clientPhone" name="clientPhone">
                 <div class="button-container">
                     <button class="cancel-button"><i class="ri-close-line"></i></button>
                     <button id="edit-button" type="submit" class="save-button"><i class="ri-save-3-line"></i></button>
@@ -134,14 +138,14 @@ document.addEventListener('DOMContentLoaded', function() {
         var formData = new FormData(document.getElementById('createForm'));
 
         var xhr = new XMLHttpRequest();
-        xhr.open("POST", "../../util/user/user_create.php", true);
+        xhr.open("POST", "../../util/client/client_create.php", true);
 
         xhr.onload = function() {
             if (xhr.status >= 200 && xhr.status < 300) {
 
                 console.log('Create form submitted');
                 document.getElementById('createModal').style.display = 'none';
-                document.querySelector('.alert').textContent = 'Success! User entry has been stored.';
+                document.querySelector('.alert').textContent = 'Success! client entry has been stored.';
                 showAlert();
             } else {
                 console.error('Form submission failed: ', xhr.responseText);
@@ -159,16 +163,18 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.edit').forEach(button => {
         button.addEventListener('click', function() {
 
-            const userID = this.getAttribute('data-id');
-            const userUsername = this.getAttribute('data-username');
-            const userPassword = this.getAttribute('data-password');
-            const userIsAdmin = this.getAttribute('data-admin');
+            const clientID = this.getAttribute('data-id');
+            const clientUsername = this.getAttribute('data-username');
+            const clientEmail = this.getAttribute('data-email');
+            const clientPassword = this.getAttribute('data-password');
+            const clientName = this.getAttribute('data-name');
+            const clientPhone = this.getAttribute('data-phone');
 
-            document.querySelector('#editModal #userID').value = userID;
-            document.querySelector('#editModal #hiddenuserID').value = userID;
-            document.querySelector('#editModal #userUsername').value = userUsername;
-            document.querySelector('#editModal #userPassword').value = userPassword;
-            document.querySelector('#editModal #userIsAdmin').value = userIsAdmin;
+            document.querySelector('#editModal #clientUsername').value = clientUsername;
+            document.querySelector('#editModal #clientEmail').value = clientEmail;
+            document.querySelector('#editModal #clientPassword').value = clientPassword;
+            document.querySelector('#editModal #clientName').value = clientName;
+            document.querySelector('#editModal #clientPhone').value = clientPhone;
 
             document.getElementById('editModal').style.display = 'block';
         });
@@ -179,14 +185,14 @@ document.addEventListener('DOMContentLoaded', function() {
         var formData = new FormData(document.getElementById('editForm'));
 
         var xhr = new XMLHttpRequest();
-        xhr.open("POST", "../../util/user/user_edit.php", true);
+        xhr.open("POST", "../../util/client/client_edit.php", true);
 
         xhr.onload = function() {
             if (xhr.status >= 200 && xhr.status < 300) {
 
                 console.log('Edit form submitted');
                 document.getElementById('editModal').style.display = 'none';
-                document.querySelector('.alert').textContent = 'Success! User entry has been edited.';
+                document.querySelector('.alert').textContent = 'Success! client entry has been edited.';
                 showAlert();
             } else {
                 console.error('Form submission failed: ', xhr.responseText);
@@ -204,27 +210,27 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.delete').forEach(button => {
         button.addEventListener('click', function() {
 
-            const userID = this.getAttribute('data-id');
+            const clientID = this.getAttribute('data-id');
 
-            document.querySelector('#deleteModal #delete-button').setAttribute('data-id', userID);
+            document.querySelector('#deleteModal #delete-button').setAttribute('data-id', clientID);
 
             document.getElementById('deleteModal').style.display = 'block';
         });
     });
     document.querySelector('#deleteModal #delete-button').addEventListener('click', function() {
-        var userID = this.getAttribute('data-id');
+        var clientID = this.getAttribute('data-id');
 
         var formData = new FormData();
-        formData.append('userID', userID);
+        formData.append('clientID', clientID);
 
         var xhr = new XMLHttpRequest();
-        xhr.open("POST", "../../util/user/user_delete.php", true);
+        xhr.open("POST", "../../util/client/client_delete.php", true);
 
         xhr.onload = function() {
             if (xhr.status >= 200 && xhr.status < 300) {
 
                 document.getElementById('deleteModal').style.display = 'none';
-                document.querySelector('.alert').textContent = 'Success! User entry has been deleted.';
+                document.querySelector('.alert').textContent = 'Success! client entry has been deleted.';
                 showAlert();
             } else {
                 console.error('Form submission failed: ', xhr.responseText);
