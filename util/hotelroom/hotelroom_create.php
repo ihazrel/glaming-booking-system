@@ -3,17 +3,17 @@ include '../db_connect.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
-    $bookingNumber = $_POST['bookingNumber'];
-    $bookingCheckinDate = $_POST['bookingCheckinDate'];
-    $bookingCheckoutDate = $_POST['bookingCheckoutDate'];
-    $bookingAmount = $_POST['bookingAmount'];
-    $clientUsername = $_POST['clientUsername'];   
+    $hotelID = $_POST['hotelID'] ?? '';
+    $roomNumber = $_POST['roomNumber'] ?? '';
+    $roomType = $_POST['roomType'] ?? '';
+    $hotelLocation = $_POST['hotelLocation'] ?? '';
+    $bookingNumber = $_POST['bookingNumber'] ?? '';
 
-    $searchQuery = "SELECT * FROM client WHERE client_username LIKE '$clientUsername'";
+    $searchQuery = "SELECT r.room_id AS room_id, h.hotel_id AS hotel_id, b.booking_id AS booking_id FROM hotel h, room r, booking b WHERE h.hotel_id = '$hotelID' AND r.room_id = '$roomType' AND b.booking_id = '$bookingNumber'";
     $searchResult = mysqli_query($link, $searchQuery) or die("Query failed");
     $row = mysqli_fetch_array($searchResult);
 
-    $query = "INSERT INTO booking (booking_number, booking_checkin_date, booking_checkout_date, booking_amt client_id) VALUES ('$bookingNumber', '$bookingCheckinDate', '$bookingCheckoutDate', '$bookingAmount', '$row[client_id]')";
+    $query = "INSERT INTO hotel_room (hotelroom_number, hotel_id, room_id, booking_id) VALUES ('$roomNumber', '$row[hotel_id]', '$row[room_id]', '$row[booking_id])";
     $result = mysqli_query($link, $query) or die("Query failed");
 
     if ($result) {

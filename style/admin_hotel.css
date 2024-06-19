@@ -57,16 +57,17 @@ nav{
 .main{
     padding-top: 90px;
     margin-left: 17%;
+    padding-bottom: 1vh;
 }
 .content{
-    width: 75%;
+    width: 85%;
     min-height: 60vh;
     display: flex;
     flex-direction: column;
     justify-content: start;
     align-items: center;
     padding: 2%;
-    margin: 7% 10%;
+    margin: 7% 8%;
     background-color: #ffffff;
     border-radius: 10px;
     border: #8b8b8b 1px solid;
@@ -104,7 +105,7 @@ nav{
     gap: 20px;
 
 }
-input[type="text"]{
+input{
     padding: 7px 10px;
     border: #000000 2px solid;
     border-radius: 5px;
@@ -112,10 +113,10 @@ input[type="text"]{
     font-weight: 500;
     transition: .2s;
 }
-input[type="text"]:hover{
+input:hover{
     border: #b92d2d 2px solid;
 }
-input[type="text"]:focus{
+input:focus{
     outline: none;
 }
 .content-table{
@@ -135,7 +136,7 @@ th, td{
 th {
     color: #fff;
     padding: 10px;
-    text-align: start;
+    text-align: center;
     padding-left: 20px;
 }
 th:last-child {
@@ -150,7 +151,7 @@ td:last-child{
 td{
     padding: 10px;
     padding-left: 20px;
-    text-align: start;
+    text-align: center;
 }
 table td {
     width: 100px; /* Adjust the width as needed */
@@ -164,15 +165,15 @@ tr:nth-child(odd) {
 
 table button{
     border: none;
-    background-color: transparent;
+    background-color:transparent;
     color: #000;
     font-size: 1.5em;
     font-weight: 500;
     cursor: pointer;
     transition: .4s;
 }
-table button.delete:hover{color: #b92d2d;}
-table button.edit:hover{color: #c78a21;}
+table button.delete{color: #b92d2d;}
+table button.edit{color: #42b033;}
 /* Add to your existing CSS */
 .modal {
     display: none; /* Hidden by default */

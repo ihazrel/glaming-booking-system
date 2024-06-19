@@ -4,13 +4,18 @@ include '../db_connect.php';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
     $clientID = $_POST['clientID'] ?? '';
-    $clientUsername = $_POST['clientUsername'] ?? '';
-    $clientEmail = $_POST['clientEmail'] ?? '';
-    $clientPassword = $_POST['clientPassword'] ?? '';
-    $clientName = $_POST['clientName'] ?? '';
-    $clientPhone = $_POST['clientPhone'] ?? '';
+    $clientUsername = $_POST['clientUsername'] ?? 'NULL';
+    $clientPassword = $_POST['clientPassword'] ?? 'NULL';
+    $clientName = $_POST['clientName'] ?? 'NULL';
+    $clientPhone = $_POST['clientPhone'] ?? 'NULL';
 
-    $query = "UPDATE client SET client_username = '$clientUsername', client_email = '$clientEmail', client_password = '$clientPassword', client_name = '$clientName', client_phone = '$clientPhone' WHERE client_id = '$clientID'";
+
+    $query = "UPDATE client 
+              SET client_username = '$clientUsername',
+                  client_password = '$clientPassword',
+                  client_name = '$clientName',
+                  client_phone = '$clientPhone'
+                  WHERE client_id = '$clientID'";
     $result = mysqli_query($link, $query) or die("Query failed");
 
     if ($result) {

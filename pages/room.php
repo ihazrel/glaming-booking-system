@@ -72,12 +72,13 @@ $result = mysqli_query( $link,$query) or die("Query failed");	// SQL statement f
 
 	$query = "SELECT * FROM room WHERE 1=1";
 	if ($roomPax != 'all') {
-		$query .= " AND room_pax = '$roomPax'";
+		$query .= " AND room_pax >= '$roomPax'";
 	}
 	if ($roomType != 'all') {
 		$query .= " AND room_type = '$roomType'";
 	}
 
+	$query .= " ORDER BY room_pax ASC";
 	$result = mysqli_query($link, $query) or die("Query failed");
 	?>
 
@@ -96,7 +97,7 @@ $result = mysqli_query( $link,$query) or die("Query failed");	// SQL statement f
 				<div class="room-desc">
 					<div class="room-desc-name">
 						<h2><?php echo $row['room_type'];?></h2>
-						<p><?php echo $row['room_pax'];?> pax | Lorem ipsum </p>
+						<p><?php echo $row['room_pax'];?> pax | RM<?php echo $row['room_price'];?> per night</p>
 					</div>
 					<div class="room-desc-misc">
 						<?php echo $row['room_desc'];?>	

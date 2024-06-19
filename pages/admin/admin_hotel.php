@@ -34,7 +34,7 @@
 
             $query = "SELECT * FROM hotel";
             if ($searchKey != null) {
-                $query .= " WHERE hotel_name = '$searchKey' or hotel_location like '%$searchKey%' or hotel_desc like '%$searchKey%'";
+                $query .= " WHERE hotel_name LIKE '%$searchKey%' or hotel_location like '%$searchKey%' or hotel_desc like '%$searchKey%'";
             }
 
         	$result = mysqli_query($link, $query) or die("Query failed");
@@ -44,8 +44,8 @@
             <table>
                 <tr style="background-color: #b92d2d">
                     <th style="width: 7%;">No</th>
-                    <th style="width: 15%;">Name</th>
-                    <th style="width: 15%;">Location</th>
+                    <th style="width: 7%;">Name</th>
+                    <th style="width: 7%;">Location</th>
                     <th>Description</th>
                     <th style="width: 5%;"></th>
                 </tr>
@@ -57,7 +57,7 @@
                     <td><?php echo $counter++; ?></td>
                     <td><?php echo $row['hotel_name'];?></td>
                     <td><?php echo $row['hotel_location'];?></td>
-                    <td style="max-width: 516px ; text-overflow: ellipsis; white-space: nowrap;"><?php echo $row['hotel_desc'];?></td>
+                    <td style="max-width: 20px; text-overflow: ellipsis; white-space: nowrap;"><?php echo $row['hotel_desc'];?></td>
                     <td><button class="edit" data-id="<?php echo $row['hotel_id'];?>" data-name="<?php echo htmlspecialchars($row['hotel_name']);?>" data-location="<?php echo htmlspecialchars($row['hotel_location'], ENT_QUOTES);?>" data-desc="<?php echo htmlspecialchars($row['hotel_desc'], ENT_QUOTES);?>"><i class="ri-pencil-line"></i></button>
                     <button class="delete" data-id="<?php echo $row['hotel_id'];?>"><i class="ri-delete-bin-line"></i></button></td>
                 </tr>

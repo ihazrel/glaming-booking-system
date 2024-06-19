@@ -12,7 +12,7 @@
 <body>
 <?php
 	include '../../util/db_connect.php';
-	$query="Select * from hotel";
+	$query="Select * from hotel_room";
 	$result = mysqli_query( $link,$query) or die("Query failed");	// SQL statement for checking
 	?>
 <?php include('../../util/nav_admin.php');?>
@@ -32,9 +32,10 @@
                 $searchKey = isset($_POST['searchKey']) ? $_POST['searchKey'] : 'all';
             }
 
-            $query = "SELECT * FROM hotel";
+            $query = "SELECT hr.hotelroom_id, hr.hotelroom_number AS room_number, h.hotel_location, r.room_type, COALESCE(b.booking_number, '') AS booking_number 
+                      FROM hotel_room hr JOIN hotel h ON hr.hotel_id = h.hotel_id JOIN room r ON hr.room_id = r.room_id LEFT JOIN booking b ON hr.booking_id = b.booking_id; ";
             if ($searchKey != null) {
-                $query .= " WHERE hotel_name = '$searchKey' or hotel_location like '%$searchKey%' or hotel_desc like '%$searchKey%'";
+                $query .= " WHERE hr.hotelroom_number = '$searchKey' or r.room_type like '%$searchKey%' or h.hotel_location like '%$searchKey%' ";
             }
 
         	$result = mysqli_query($link, $query) or die("Query failed");
@@ -44,9 +45,10 @@
             <table>
                 <tr style="background-color: #b92d2d">
                     <th style="width: 7%;">No</th>
-                    <th style="width: 15%;">Name</th>
-                    <th style="width: 15%;">Location</th>
-                    <th>Description</th>
+                    <th>Room Number</th>
+                    <th>Room Type</th>
+                    <th>Hotel Branch</th>
+                    <th>Booking No</th>
                     <th style="width: 5%;"></th>
                 </tr>
                 <?php
@@ -55,11 +57,12 @@
 
                 <tr>
                     <td><?php echo $counter++; ?></td>
-                    <td><?php echo $row['hotel_name'];?></td>
+                    <td><?php echo $row['room_number'];?></td>
+                    <td><?php echo $row['room_type'];?></td>
                     <td><?php echo $row['hotel_location'];?></td>
-                    <td style="max-width: 516px ; text-overflow: ellipsis; white-space: nowrap;"><?php echo $row['hotel_desc'];?></td>
-                    <td><button class="edit" data-id="<?php echo $row['hotel_id'];?>" data-name="<?php echo htmlspecialchars($row['hotel_name']);?>" data-location="<?php echo htmlspecialchars($row['hotel_location'], ENT_QUOTES);?>" data-desc="<?php echo htmlspecialchars($row['hotel_desc'], ENT_QUOTES);?>"><i class="ri-pencil-line"></i></button>
-                    <button class="delete" data-id="<?php echo $row['hotel_id'];?>"><i class="ri-delete-bin-line"></i></button></td>
+                    <td><?php echo $row['booking_number'];?></td>
+                    <td><button class="edit" data-id="<?php echo $row['hotelroom_id'];?>" data-number="<?php echo htmlspecialchars($row['room_number']);?>" data-type="<?php echo htmlspecialchars($row['room_type'], ENT_QUOTES);?>" data-location="<?php echo htmlspecialchars($row['hotel_location'], ENT_QUOTES);?>" data-booking="<?php echo $row['booking_number']?>"><i class="ri-pencil-line"></i></button>
+                    <button class="delete" data-id="<?php echo $row['hotelroom_id'];?>"><i class="ri-delete-bin-line"></i></button></td>
                 </tr>
                 <?php } ?>
             </table>
@@ -78,9 +81,10 @@
         <div class="modal-content">
             <h3 style="margin: 10px;">Create New Hotel</h3>
             <form id="createForm" class="createForm" method="POST">
-                <input type="text" id="hotelName" name="hotelName" placeholder="Name">   
-                <input type="text" id="hotelLocation" name="hotelLocation" placeholder="Location">
-                <input type="text" id="hotelDesc" name="hotelDesc" placeholder="Description">
+                <input type="text" id="roomNumber" name="roomNumber" placeholder="Room Number">   
+                <input type="text" id="roomType" name="roomType" placeholder="Room Type">
+                <input type="text" id="hotelLocation" name="hotelLocation" placeholder="Hotel Branch">
+                <input type="text" id="bookingNumber" name="bookingNumber" placeholder="Booking No">
                 <div class="button-container">
                     <button class="cancel-button"><i class="ri-close-line"></i></button>
                     <button id="create-button" type="submit" class="save-button"><i class="ri-save-3-line"></i></button>
@@ -93,10 +97,11 @@
         <div class="modal-content">
             <h3 style="margin: 10px;">Edit Hotel</h3>
             <form id="editForm" class="editForm" method="POST">
-                <input type="hidden" id="hiddenHotelID" name="hotelID">  
-                <input type="text" id="hotelName" name="hotelName">  
-                <input type="text" id="hotelLocation" name="hotelLocation">
-                <input type="text" id="hotelDesc" name="hotelDesc">
+                <input type="hidden" id="hotelID" name="hotelID">
+                <input type="text" id="roomNumber" name="roomNumber" placeholder="Room Number" disabled>   
+                <input type="text" id="roomType" name="roomType" placeholder="Room Type" disabled>
+                <input type="text" id="hotelLocation" name="hotelLocation" placeholder="Hotel Branch" disabled>
+                <input type="text" id="bookingNumber" name="bookingNumber" placeholder="Booking No">
                 <div class="button-container">
                     <button class="cancel-button"><i class="ri-close-line"></i></button>
                     <button id="edit-button" type="submit" class="save-button"><i class="ri-save-3-line"></i></button>
@@ -137,7 +142,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 console.log('Create form submitted');
                 document.getElementById('createModal').style.display = 'none';
-                document.querySelector('.alert').textContent = 'Success! Hotel entry has been stored.';
+                document.querySelector('.alert').textContent = 'Success! Room entry has been stored.';
                 showAlert();
             } else {
                 console.error('Form submission failed: ', xhr.responseText);
@@ -155,15 +160,17 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.edit').forEach(button => {
         button.addEventListener('click', function() {
 
-            const hotelID = this.getAttribute('data-id')
-            const hotelName = this.getAttribute('data-name');
+            const hotelID = this.getAttribute('data-id');
+            const roomNumber = this.getAttribute('data-number');
+            const roomType = this.getAttribute('data-type');
             const hotelLocation = this.getAttribute('data-location');
-            const hotelDesc = this.getAttribute('data-desc');
+            const bookingNumber = this.getAttribute('data-booking');
 
-            document.querySelector('#editModal #hiddenHotelID').value = hotelID;
-            document.querySelector('#editModal #hotelName').value = hotelName;
-            document.querySelector('#editModal #hotelLocation').value = hotelLocation;
-            document.querySelector('#editModal #hotelDesc').value = hotelDesc;
+            document.querySelector('#editForm #hotelID').value = hotelID;
+            document.querySelector('#editForm #roomNumber').value = roomNumber;
+            document.querySelector('#editForm #roomType').value = roomType;
+            document.querySelector('#editForm #hotelLocation').value = hotelLocation;
+            document.querySelector('#editForm #bookingNumber').value = bookingNumber;
 
             document.getElementById('editModal').style.display = 'block';
         });

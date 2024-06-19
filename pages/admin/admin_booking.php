@@ -12,7 +12,7 @@
 <body>
 <?php
 	include '../../util/db_connect.php';
-	$query="Select * from room";
+	$query="Select * from booking";
 	$result = mysqli_query( $link,$query) or die("Query failed");	// SQL statement for checking
 	?>
 <?php include('../../util/nav_admin.php');?>
@@ -32,9 +32,9 @@
                 $searchKey = isset($_POST['searchKey']) ? $_POST['searchKey'] : 'all';
             }
 
-            $query = "SELECT * FROM room";
+            $query = "SELECT * FROM booking b, client c WHERE b.client_id = c.client_id";
             if ($searchKey != null) {
-                $query .= " WHERE room_id = '$searchKey' or room_type like '%$searchKey%' or room_desc like '%$searchKey%' or room_pax = '$searchKey'";
+                $query .= " and (b.booking_number like '%$searchKey%' or c.client_username like '%$searchKey%' or c.client_name like '%$searchKey%')";
             }
 
         	$result = mysqli_query($link, $query) or die("Query failed");
@@ -44,10 +44,11 @@
             <table>
                 <tr style="background-color: #b92d2d">
                     <th style="width: 7%;">No</th>
-                    <th style="width: 7%;">ID</th>
-                    <th style="width: 15%;">Type</th>
-                    <th>Description</th>
-                    <th style="width: 7%;">Pax</th>
+                    <th>Booking ID</th>
+                    <th>Checkin</th>
+                    <th>Checkout</th>
+                    <th>Amount</th>
+                    <th>Client Username</th>
                     <th style="width: 5%;"></th>
                 </tr>
                 <?php
@@ -56,12 +57,13 @@
 
                 <tr>
                     <td><?php echo $counter++; ?></td>
-                    <td><?php echo $row['room_id'];?></td>
-                    <td style="max-width: 100px ; text-overflow: ellipsis; white-space: nowrap;"><?php echo $row['room_type'];?></td>
-                    <td style="max-width: 450px ; text-overflow: ellipsis; white-space: nowrap;"><?php echo $row['room_desc'];?></td>
-                    <td><?php echo $row['room_pax'];?></td>
-                    <td><button class="edit" data-id="<?php echo $row['room_id'];?>" data-type="<?php echo htmlspecialchars($row['room_type'], ENT_QUOTES);?>" data-desc="<?php echo htmlspecialchars($row['room_desc'], ENT_QUOTES);?>" data-pax="<?php echo $row['room_pax'];?>"><i class="ri-pencil-line"></i></button>
-                    <button class="delete" data-id="<?php echo $row['room_id'];?>"><i class="ri-delete-bin-line"></i></button></td>
+                    <td><?php echo $row['booking_number'];?></td>
+                    <td><?php echo $row['booking_checkin_date'];?></td>
+                    <td><?php echo $row['booking_checkout_date'];?></td>
+                    <td>RM<?php echo $row['booking_amt'];?></td>
+                    <td><?php echo $row['client_username'];?></td>
+                    <td><button class="edit" data-id="<?php echo $row['booking_id'];?>" data-number="<?php echo htmlspecialchars($row['booking_number'], ENT_QUOTES);?>" data-checkin="<?php echo $row['booking_checkin_date'];?>" data-checkout="<?php echo $row['booking_checkout_date'];?>" data-amount="<?php echo $row['booking_amt'];?>" data-clientID="<?php echo $row['client_id'];?>" data-clientUsername="<?php echo $row['client_username'];?>"><i class="ri-pencil-line"></i></button>
+                    <button class="delete" data-id="<?php echo $row['booking_id'];?>"><i class="ri-delete-bin-line"></i></button></td>
                 </tr>
                 <?php } ?>
             </table>
@@ -78,12 +80,13 @@
     <!-- Modal Structure -->
     <div id="createModal" class="modal">
         <div class="modal-content">
-            <h3 style="margin: 10px;">Create New Hotel</h3>
+            <h3 style="margin: 10px;">Create New Booking</h3>
             <form id="createForm" class="createForm" method="POST">
-                <input type="text" id="roomID" name="roomID" placeholder="ID">   
-                <input type="text" id="roomType" name="roomType" placeholder="Type">
-                <input type="text" id="roomDesc" name="roomDesc" placeholder="Description">
-                <input type="text" id="roomPax" name="roomPax" placeholder="Pax">
+                <input type="text" id="bookingNumber" name="bookingNumber" placeholder="Booking ID">   
+                <input type="date" id="bookingCheckinDate" name="bookingCheckinDate" placeholder="Checkin Date">
+                <input type="date" id="bookingCheckoutDate" name="bookingCheckoutDate" placeholder="Checkout Date">
+                <input type="number" id="bookingAmount" name="bookingAmount" placeholder="Booking Amount">
+                <input type="text" id="clientUsername" name="clientUsername" placeholder="Client Name">
                 <div class="button-container">
                     <button class="cancel-button"><i class="ri-close-line"></i></button>
                     <button id="create-button" type="submit" class="save-button"><i class="ri-save-3-line"></i></button>
@@ -96,11 +99,12 @@
         <div class="modal-content">
             <h3 style="margin: 10px;">Edit Hotel</h3>
             <form id="editForm" class="editForm" method="POST">
-                <input type="text" id="roomID" name="roomID" disabled>
-                <input type="hidden" id="hiddenroomID" name="roomID">    
-                <input type="text" id="roomType" name="roomType">
-                <input type="text" id="roomDesc" name="roomDesc">
-                <input type="text" id="roomPax" name="roomPax">
+                <input type="hidden" id="hiddenbookingID" name="bookingID"> 
+                <input type="text" id="bookingNumber" name="bookingNumber" placeholder="Booking ID">   
+                <input type="date" id="bookingCheckinDate" name="bookingCheckinDate" placeholder="Checkin Date">
+                <input type="date" id="bookingCheckoutDate" name="bookingCheckoutDate" placeholder="Checkout Date">
+                <input type="number" id="bookingAmount" name="bookingAmount" placeholder="Booking Amount">
+                <input type="text" id="clientUsername" name="clientUsername" placeholder="Client Name" disabled>
                 <div class="button-container">
                     <button class="cancel-button"><i class="ri-close-line"></i></button>
                     <button id="edit-button" type="submit" class="save-button"><i class="ri-save-3-line"></i></button>
@@ -134,14 +138,14 @@ document.addEventListener('DOMContentLoaded', function() {
         var formData = new FormData(document.getElementById('createForm'));
 
         var xhr = new XMLHttpRequest();
-        xhr.open("POST", "../../util/room/room_create.php", true);
+        xhr.open("POST", "../../util/booking/booking_create.php", true);
 
         xhr.onload = function() {
             if (xhr.status >= 200 && xhr.status < 300) {
 
                 console.log('Create form submitted');
                 document.getElementById('createModal').style.display = 'none';
-                document.querySelector('.alert').textContent = 'Success! Room entry has been stored.';
+                document.querySelector('.alert').textContent = 'Success! Booking entry has been stored.';
                 showAlert();
             } else {
                 console.error('Form submission failed: ', xhr.responseText);
@@ -156,19 +160,22 @@ document.addEventListener('DOMContentLoaded', function() {
     });
    
     // Event listeners for each edit button
-    document.querySelectorAll('.edit').forEach(button => {
+    document.querySelectorAll('table .edit').forEach(button => {
         button.addEventListener('click', function() {
 
-            const roomID = this.getAttribute('data-id');
-            const roomType = this.getAttribute('data-type');
-            const roomDesc = this.getAttribute('data-desc');
-            const roomPax = this.getAttribute('data-pax');
+            const bookingID = this.getAttribute('data-id');
+            const bookingNumber = this.getAttribute('data-number');
+            const bookingCheckinDate = this.getAttribute('data-checkin');
+            const bookingCheckoutDate = this.getAttribute('data-checkout');
+            const bookingAmount = this.getAttribute('data-amount');
+            const clientUsername = this.getAttribute('data-clientUsername');
 
-            document.querySelector('#editModal #roomID').value = roomID;
-            document.querySelector('#editModal #hiddenroomID').value = roomID;
-            document.querySelector('#editModal #roomType').value = roomType;
-            document.querySelector('#editModal #roomDesc').value = roomDesc;
-            document.querySelector('#editModal #roomPax').value = roomPax;
+            document.querySelector('#editModal #hiddenbookingID').value = bookingID;
+            document.querySelector('#editModal #bookingNumber').value = bookingNumber;
+            document.querySelector('#editModal #bookingCheckinDate').value = bookingCheckinDate;
+            document.querySelector('#editModal #bookingCheckoutDate').value = bookingCheckoutDate;
+            document.querySelector('#editModal #bookingAmount').value = bookingAmount;
+            document.querySelector('#editModal #clientUsername').value = clientUsername;
 
             document.getElementById('editModal').style.display = 'block';
         });
@@ -179,15 +186,17 @@ document.addEventListener('DOMContentLoaded', function() {
         var formData = new FormData(document.getElementById('editForm'));
 
         var xhr = new XMLHttpRequest();
-        xhr.open("POST", "../../util/room/room_edit.php", true);
+        xhr.open("POST", "../../util/booking/booking_edit.php", true);
 
         xhr.onload = function() {
             if (xhr.status >= 200 && xhr.status < 300) {
 
                 console.log('Edit form submitted');
                 document.getElementById('editModal').style.display = 'none';
-                document.querySelector('.alert').textContent = 'Success! Room entry has been edited.';
+                document.querySelector('.alert').textContent = 'Success! Booking entry has been edited.';
                 showAlert();
+
+                console.log(xhr.responseText);
             } else {
                 console.error('Form submission failed: ', xhr.responseText);
             }
@@ -204,21 +213,21 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.delete').forEach(button => {
         button.addEventListener('click', function() {
 
-            const roomID = this.getAttribute('data-id');
+            const bookingID = this.getAttribute('data-id');
 
-            document.querySelector('#deleteModal #delete-button').setAttribute('data-id', roomID);
+            document.querySelector('#deleteModal #delete-button').setAttribute('data-id', bookingID);
 
             document.getElementById('deleteModal').style.display = 'block';
         });
     });
     document.querySelector('#deleteModal #delete-button').addEventListener('click', function() {
-        var roomID = this.getAttribute('data-id');
+        var bookingID = this.getAttribute('data-id');
 
         var formData = new FormData();
-        formData.append('roomID', roomID);
+        formData.append('bookingID', bookingID);
 
         var xhr = new XMLHttpRequest();
-        xhr.open("POST", "../../util/room/room_delete.php", true);
+        xhr.open("POST", "../../util/booking/booking_delete.php", true);
 
         xhr.onload = function() {
             if (xhr.status >= 200 && xhr.status < 300) {
