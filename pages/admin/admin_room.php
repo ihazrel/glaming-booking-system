@@ -34,7 +34,7 @@
 
             $query = "SELECT * FROM room";
             if ($searchKey != null) {
-                $query .= " room_type like '%$searchKey%' or room_desc like '%$searchKey%' or room_pax = '$searchKey' or room_price = '$searchKey'";
+                $query .= " WHERE room_type like '%$searchKey%' or room_desc like '%$searchKey%' or room_pax = '$searchKey' or room_price = '$searchKey'";
             }
 
         	$result = mysqli_query($link, $query) or die("Query failed");
@@ -44,10 +44,10 @@
             <table>
                 <tr style="background-color: #b92d2d">
                     <th style="width: 7%;">No</th>
-                    <th style="width: 20%;">Type</th>
+                    <th style="width: 30%;">Type</th>
                     <th>Description</th>
                     <th style="width: 7%;">Pax</th>
-                    <th style="width: 15%;">Price</th>
+                    <th style="width: 10%;">Price</th>
                     <th style="width: 5%;"></th>
                 </tr>
                 <?php

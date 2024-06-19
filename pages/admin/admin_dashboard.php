@@ -50,7 +50,7 @@
                             $query="Select * from client";
                             $result = mysqli_query( $link,$query) or die("Query failed"); 
                             echo mysqli_num_rows($result)?></h1>
-                    <h3>Users</h3>
+                    <h3>Clients</h3>
                 </div>
             </div>
 
@@ -58,7 +58,8 @@
                 <div class="card-header"><i class="ri-hotel-bed-fill ri-3x"></i></i></div>
                 <div class="card-content">
                     <h1><?php 
-                            $query="Select * from room";
+                            $query="SELECT hr.hotelroom_number, h.hotel_id, h.hotel_name, r.room_id, r.room_type, COALESCE(b.booking_id, '') AS booking_id
+                            FROM hotel_room hr JOIN hotel h ON hr.hotel_id = h.hotel_id JOIN room r ON hr.room_id = r.room_id LEFT JOIN booking b ON hr.booking_id = b.booking_id WHERE hr.booking_id IS NULL; ";
                             $result = mysqli_query( $link,$query) or die("Query failed");
                             echo mysqli_num_rows($result)?></h1>
                     <h3>Rooms available</h3>

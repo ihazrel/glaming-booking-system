@@ -34,7 +34,7 @@
 
             $query = "SELECT * FROM client";
             if ($searchKey != null) {
-                $query .= " WHERE client_username = '$searchKey' or client_email like '%$searchKey%' or client_name like '%$searchKey%' or client_phone = '$searchKey'";
+                $query .= " WHERE client_username = '$searchKey' or client_name like '%$searchKey%' or client_phone = '$searchKey'";
             }
 
         	$result = mysqli_query($link, $query) or die("Query failed");
@@ -45,7 +45,6 @@
                 <tr style="background-color: #b92d2d">
                     <th style="width: 7%;">No</th>
                     <th>Username</th>
-                    <th>Email</th>
                     <th>Password</th>
                     <th>Name</th>
                     <th>Phone</th>
@@ -58,11 +57,10 @@
                 <tr>
                     <td><?php echo $counter++; ?></td>
                     <td><?php echo $row['client_username'];?></td>
-                    <td><?php echo $row['client_email'];?></td>
                     <td><?php echo $row['client_password'];?></td>
                     <td><?php echo $row['client_name'];?></td>
                     <td><?php echo $row['client_phone'];?></td>
-                    <td><button class="edit" data-id="<?php echo $row['client_id'];?>" data-username="<?php echo htmlspecialchars($row['client_username'], ENT_QUOTES);?>" data-email="<?php echo htmlspecialchars($row['client_email'])?>" data-password="<?php echo htmlspecialchars($row['client_password'], ENT_QUOTES);?>" data-name="<?php echo $row['client_name'];?>" data-phone="<?php echo $row['client_phone']?>"><i class="ri-pencil-line"></i></button>
+                    <td><button class="edit" data-id="<?php echo $row['client_id'];?>" data-username="<?php echo htmlspecialchars($row['client_username'], ENT_QUOTES);?>" data-password="<?php echo htmlspecialchars($row['client_password'], ENT_QUOTES);?>" data-name="<?php echo $row['client_name'];?>" data-phone="<?php echo $row['client_phone']?>"><i class="ri-pencil-line"></i></button>
                     <button class="delete" data-id="<?php echo $row['client_id'];?>"><i class="ri-delete-bin-line"></i></button></td>
                 </tr>
                 <?php } ?>
@@ -83,7 +81,6 @@
             <h3 style="margin: 10px;">Create New Hotel</h3>
             <form id="createForm" class="createForm" method="POST">
                 <input type="text" id="clientUsername" name="clientUsername" placeholder="Username">
-                <input type="text" id="clientEmail" name="clientEmail" placeholder="Email">
                 <input type="text" id="clientPassword" name="clientPassword" placeholder="Password">
                 <input type="text" id="clientName" name="clientName" placeholder="Name">
                 <input type="text" id="clientPhone" name="clientPhone" placeholder="Phone">
@@ -100,11 +97,10 @@
             <h3 style="margin: 10px;">Edit Hotel</h3>
             <form id="editForm" class="editForm" method="POST">
                 <input type="hidden" id="hiddenclientID" name="clientID">   
-                <input type="text" id="clientUsername" name="clientUsername">
-                <input type="text" id="clientEmail" name="clientEmail">
-                <input type="text" id="clientPassword" name="clientPassword">
-                <input type="text" id="clientName" name="clientName">
-                <input type="text" id="clientPhone" name="clientPhone">
+                <input type="text" id="clientUsername" name="clientUsername" placeholder="Username">
+                <input type="text" id="clientPassword" name="clientPassword" placeholder="Password">
+                <input type="text" id="clientName" name="clientName" placeholder="Name">
+                <input type="text" id="clientPhone" name="clientPhone" placeholder="Phone Number">
                 <div class="button-container">
                     <button class="cancel-button"><i class="ri-close-line"></i></button>
                     <button id="edit-button" type="submit" class="save-button"><i class="ri-save-3-line"></i></button>
@@ -142,7 +138,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
         xhr.onload = function() {
             if (xhr.status >= 200 && xhr.status < 300) {
-
                 console.log('Create form submitted');
                 document.getElementById('createModal').style.display = 'none';
                 document.querySelector('.alert').textContent = 'Success! client entry has been stored.';
@@ -170,6 +165,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const clientName = this.getAttribute('data-name');
             const clientPhone = this.getAttribute('data-phone');
 
+            document.querySelector('#editModal #hiddenclientID').value = clientID;
             document.querySelector('#editModal #clientUsername').value = clientUsername;
             document.querySelector('#editModal #clientEmail').value = clientEmail;
             document.querySelector('#editModal #clientPassword').value = clientPassword;
