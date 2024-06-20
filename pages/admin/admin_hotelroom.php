@@ -32,10 +32,10 @@
                 $searchKey = isset($_POST['searchKey']) ? $_POST['searchKey'] : 'all';
             }
 
-            $query = "SELECT hr.hotelroom_id, hr.hotelroom_number AS room_number, h.hotel_location, r.room_type, COALESCE(b.booking_number, '') AS booking_number 
-                      FROM hotel_room hr JOIN hotel h ON hr.hotel_id = h.hotel_id JOIN room r ON hr.room_id = r.room_id LEFT JOIN booking b ON hr.booking_id = b.booking_id; ";
+            $query = "SELECT hr.hotelroom_id AS hotelroom_id, hr.hotelroom_number AS room_number, h.hotel_location, r.room_type, COALESCE(b.booking_number, '') AS booking_number 
+                      FROM hotel_room hr JOIN hotel h ON hr.hotel_id = h.hotel_id JOIN room r ON hr.room_id = r.room_id LEFT JOIN booking b ON hr.booking_id = b.booking_id";
             if ($searchKey != null) {
-                $query .= " WHERE hr.hotelroom_number = '$searchKey' or r.room_type like '%$searchKey%' or h.hotel_location like '%$searchKey%' ";
+                $query .= " WHERE hr.hotelroom_number LIKE '%$searchKey%' or r.room_type like '%$searchKey%' or h.hotel_location like '%$searchKey%' or b.booking_number like '%$searchKey%'";
             }
 
         	$result = mysqli_query($link, $query) or die("Query failed");
@@ -79,7 +79,7 @@
     <!-- Modal Structure -->
     <div id="createModal" class="modal">
         <div class="modal-content">
-            <h3 style="margin: 10px;">Create New Hotel</h3>
+            <h3 style="margin: 10px;">Create New Room</h3>
             <form id="createForm" class="createForm" method="POST">
                 <input type="text" id="roomNumber" name="roomNumber" placeholder="Room Number">   
                 <input type="text" id="roomType" name="roomType" placeholder="Room Type">
@@ -95,9 +95,9 @@
 
     <div id="editModal" class="modal">
         <div class="modal-content">
-            <h3 style="margin: 10px;">Edit Hotel</h3>
+            <h3 style="margin: 10px;">Edit Room</h3>
             <form id="editForm" class="editForm" method="POST">
-                <input type="hidden" id="hotelID" name="hotelID">
+                <input type="hidden" id="hotelroomID" name="hotelroomID">
                 <input type="text" id="roomNumber" name="roomNumber" placeholder="Room Number" disabled>   
                 <input type="text" id="roomType" name="roomType" placeholder="Room Type" disabled>
                 <input type="text" id="hotelLocation" name="hotelLocation" placeholder="Hotel Branch" disabled>
@@ -135,7 +135,7 @@ document.addEventListener('DOMContentLoaded', function() {
         var formData = new FormData(document.getElementById('createForm'));
 
         var xhr = new XMLHttpRequest();
-        xhr.open("POST", "../../util/hotel/hotel_create.php", true);
+        xhr.open("POST", "../../util/hotelroom/hotelroom_create.php", true);
 
         xhr.onload = function() {
             if (xhr.status >= 200 && xhr.status < 300) {
@@ -160,13 +160,13 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.edit').forEach(button => {
         button.addEventListener('click', function() {
 
-            const hotelID = this.getAttribute('data-id');
+            const hotelroomID = this.getAttribute('data-id');
             const roomNumber = this.getAttribute('data-number');
             const roomType = this.getAttribute('data-type');
             const hotelLocation = this.getAttribute('data-location');
             const bookingNumber = this.getAttribute('data-booking');
 
-            document.querySelector('#editForm #hotelID').value = hotelID;
+            document.querySelector('#editForm #hotelroomID').value = hotelroomID;
             document.querySelector('#editForm #roomNumber').value = roomNumber;
             document.querySelector('#editForm #roomType').value = roomType;
             document.querySelector('#editForm #hotelLocation').value = hotelLocation;
@@ -181,7 +181,7 @@ document.addEventListener('DOMContentLoaded', function() {
         var formData = new FormData(document.getElementById('editForm'));
 
         var xhr = new XMLHttpRequest();
-        xhr.open("POST", "../../util/hotel/hotel_edit.php", true);
+        xhr.open("POST", "../../util/hotelroom/hotelroom_edit.php", true);
 
         xhr.onload = function() {
             if (xhr.status >= 200 && xhr.status < 300) {
@@ -220,7 +220,7 @@ document.addEventListener('DOMContentLoaded', function() {
         formData.append('hotelID', hotelID);
 
         var xhr = new XMLHttpRequest();
-        xhr.open("POST", "../../util/hotel/hotel_delete.php", true);
+        xhr.open("POST", "../../util/hotelroom/hotelroom_delete.php", true);
 
         xhr.onload = function() {
             if (xhr.status >= 200 && xhr.status < 300) {

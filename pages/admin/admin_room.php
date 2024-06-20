@@ -80,7 +80,7 @@
     <!-- Modal Structure -->
     <div id="createModal" class="modal">
         <div class="modal-content">
-            <h3 style="margin: 10px;">Create New Hotel</h3>
+            <h3 style="margin: 10px;">Create New Room Type</h3>
             <form id="createForm" class="createForm" method="POST"> 
                 <input type="text" id="roomType" name="roomType" placeholder="Type">
                 <input type="text" id="roomDesc" name="roomDesc" placeholder="Description">
@@ -96,7 +96,7 @@
 
     <div id="editModal" class="modal">
         <div class="modal-content">
-            <h3 style="margin: 10px;">Edit Hotel</h3>
+            <h3 style="margin: 10px;">Edit Room Type</h3>
             <form id="editForm" class="editForm" method="POST">
                 <input type="hidden" id="hiddenroomID" name="roomID">    
                 <input type="text" id="roomType" name="roomType">

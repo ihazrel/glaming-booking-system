@@ -86,7 +86,7 @@
                 <input type="date" id="bookingCheckinDate" name="bookingCheckinDate" placeholder="Checkin Date">
                 <input type="date" id="bookingCheckoutDate" name="bookingCheckoutDate" placeholder="Checkout Date">
                 <input type="number" id="bookingAmount" name="bookingAmount" placeholder="Booking Amount">
-                <input type="text" id="clientUsername" name="clientUsername" placeholder="Client Name">
+                <input type="text" id="clientUsername" name="clientUsername" placeholder="Client Username">
                 <div class="button-container">
                     <button class="cancel-button"><i class="ri-close-line"></i></button>
                     <button id="create-button" type="submit" class="save-button"><i class="ri-save-3-line"></i></button>
@@ -97,14 +97,14 @@
 
     <div id="editModal" class="modal">
         <div class="modal-content">
-            <h3 style="margin: 10px;">Edit Hotel</h3>
+            <h3 style="margin: 10px;">Edit Booking</h3>
             <form id="editForm" class="editForm" method="POST">
                 <input type="hidden" id="hiddenbookingID" name="bookingID"> 
                 <input type="text" id="bookingNumber" name="bookingNumber" placeholder="Booking ID">   
                 <input type="date" id="bookingCheckinDate" name="bookingCheckinDate" placeholder="Checkin Date">
                 <input type="date" id="bookingCheckoutDate" name="bookingCheckoutDate" placeholder="Checkout Date">
                 <input type="number" id="bookingAmount" name="bookingAmount" placeholder="Booking Amount">
-                <input type="text" id="clientUsername" name="clientUsername" placeholder="Client Name" disabled>
+                <input type="text" id="clientUsername" name="clientUsername" placeholder="Client Username" disabled>
                 <div class="button-container">
                     <button class="cancel-button"><i class="ri-close-line"></i></button>
                     <button id="edit-button" type="submit" class="save-button"><i class="ri-save-3-line"></i></button>
