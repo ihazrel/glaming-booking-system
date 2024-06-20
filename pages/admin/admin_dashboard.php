@@ -69,10 +69,15 @@
         </div>
         <div class="summary-body">
             <div class="card">
-                <div class="card-header"><h2 style="font-weight: bold;">Highest Revenue</h2></div>
+                <div class="card-header"><h2 style="font-weight: bold;">Total Revenue</h2></div>
                 <div class="card-content">
-                    <h1 style="font-size: 3rem;">RM 1420</h1>
-                    <h3>Booking ID</h3>
+                    <?php 
+                        $query="SELECT SUM(booking_amt) AS total_revenue FROM booking";
+                        $result = mysqli_query( $link,$query) or die("Query failed");
+                        $row = mysqli_fetch_assoc($result);
+                    ?>
+                    <h1 style="font-size: 3rem;">RM<?php echo $row['total_revenue'];?></h1>
+                    <!-- <h3>Booking ID</h3> -->
                 </div>
             </div>
             <div class="card">

@@ -34,7 +34,7 @@
 
             $query = "SELECT * FROM client";
             if ($searchKey != null) {
-                $query .= " WHERE client_username = '$searchKey' or client_name like '%$searchKey%' or client_phone = '$searchKey'";
+                $query .= " WHERE client_username = '$searchKey' or client_name like '%$searchKey%' or client_phone like '%$searchKey%'";
             }
 
         	$result = mysqli_query($link, $query) or die("Query failed");
@@ -72,7 +72,9 @@
     <!--Alert Popup-->
     <div class="alert success">
             <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>  
-            <strong>Success!</strong> Indicates a successful or positive action.
+    </div>
+    <div class="alert fail">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>  
     </div>
 
     <!-- Modal Structure -->
@@ -138,10 +140,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
         xhr.onload = function() {
             if (xhr.status >= 200 && xhr.status < 300) {
+
                 console.log('Create form submitted');
                 document.getElementById('createModal').style.display = 'none';
-                document.querySelector('.alert').textContent = 'Success! client entry has been stored.';
-                showAlert();
+
+                var response = JSON.parse(xhr.responseText);
+                alertMessage = response.message;
+                alertFlag = response.status;
+                showAlert(alertFlag, alertMessage);
+
             } else {
                 console.error('Form submission failed: ', xhr.responseText);
             }
@@ -160,14 +167,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const clientID = this.getAttribute('data-id');
             const clientUsername = this.getAttribute('data-username');
-            const clientEmail = this.getAttribute('data-email');
             const clientPassword = this.getAttribute('data-password');
             const clientName = this.getAttribute('data-name');
             const clientPhone = this.getAttribute('data-phone');
 
             document.querySelector('#editModal #hiddenclientID').value = clientID;
             document.querySelector('#editModal #clientUsername').value = clientUsername;
-            document.querySelector('#editModal #clientEmail').value = clientEmail;
             document.querySelector('#editModal #clientPassword').value = clientPassword;
             document.querySelector('#editModal #clientName').value = clientName;
             document.querySelector('#editModal #clientPhone').value = clientPhone;
@@ -188,8 +193,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 console.log('Edit form submitted');
                 document.getElementById('editModal').style.display = 'none';
-                document.querySelector('.alert').textContent = 'Success! client entry has been edited.';
-                showAlert();
+
+                var response = JSON.parse(xhr.responseText);
+                alertMessage = response.message;
+                alertFlag = response.status;
+                showAlert(alertFlag, alertMessage);
+
             } else {
                 console.error('Form submission failed: ', xhr.responseText);
             }
@@ -226,8 +235,12 @@ document.addEventListener('DOMContentLoaded', function() {
             if (xhr.status >= 200 && xhr.status < 300) {
 
                 document.getElementById('deleteModal').style.display = 'none';
-                document.querySelector('.alert').textContent = 'Success! client entry has been deleted.';
-                showAlert();
+
+                var response = JSON.parse(xhr.responseText);
+                alertMessage = response.message;
+                alertFlag = response.status;
+                showAlert(alertFlag, alertMessage);
+
             } else {
                 console.error('Form submission failed: ', xhr.responseText);
             }
@@ -251,11 +264,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
 });  
 
-function showAlert(){
-    document.querySelector('.alert').style.opacity = '1';
-    setTimeout(function() {
-        document.querySelector('.alert').style.opacity = '0';
-    }, 2500);
+function showAlert(status, message){
+    
+    if(status){
+        document.querySelector('.alert.success').textContent = message;
+        document.querySelector('.alert.success').style.opacity = '1';
+        setTimeout(function() {
+            document.querySelector('.alert.success').style.opacity = '0';
+        }, 2500);
+    }else{
+        document.querySelector('.alert.fail').textContent = message;
+        document.querySelector('.alert.fail').style.opacity = '1';
+        setTimeout(function() {
+            document.querySelector('.alert.fail').style.opacity = '0';
+        }, 2500);
+    }
 }
 
 </script>

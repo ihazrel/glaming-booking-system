@@ -27,8 +27,6 @@ nav{
 .main{
     padding-top: 90px; /* Adjust if there's a fixed header */
     margin-left: 17%;
-    height: calc(100vh - 90px); /* Adjust the 90px if there's a different fixed header/footer height */
-    overflow-y: auto; /* Allows scrolling within .main if content exceeds its height */
 }
 .content{
     width: 90%;
