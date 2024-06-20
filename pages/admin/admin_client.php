@@ -78,7 +78,7 @@
     <!-- Modal Structure -->
     <div id="createModal" class="modal">
         <div class="modal-content">
-            <h3 style="margin: 10px;">Create New Hotel</h3>
+            <h3 style="margin: 10px;">Create New Client</h3>
             <form id="createForm" class="createForm" method="POST">
                 <input type="text" id="clientUsername" name="clientUsername" placeholder="Username">
                 <input type="text" id="clientPassword" name="clientPassword" placeholder="Password">
@@ -94,7 +94,7 @@
 
     <div id="editModal" class="modal">
         <div class="modal-content">
-            <h3 style="margin: 10px;">Edit Hotel</h3>
+            <h3 style="margin: 10px;">Edit Client</h3>
             <form id="editForm" class="editForm" method="POST">
                 <input type="hidden" id="hiddenclientID" name="clientID">   
                 <input type="text" id="clientUsername" name="clientUsername" placeholder="Username">

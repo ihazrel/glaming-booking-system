@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $searchResult = mysqli_query($link, $searchQuery) or die("Query failed");
     $row = mysqli_fetch_array($searchResult);
 
-    $query = "INSERT INTO booking (booking_number, booking_checkin_date, booking_checkout_date, booking_amt client_id) VALUES ('$bookingNumber', '$bookingCheckinDate', '$bookingCheckoutDate', '$bookingAmount', '$row[client_id]')";
+    $query = "INSERT INTO booking (booking_number, booking_checkin_date, booking_checkout_date, booking_amt, client_id) VALUES ('$bookingNumber', '$bookingCheckinDate', '$bookingCheckoutDate', '$bookingAmount', '$row[client_id]')";
     $result = mysqli_query($link, $query) or die("Query failed");
 
     if ($result) {
