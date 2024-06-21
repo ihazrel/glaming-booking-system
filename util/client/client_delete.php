@@ -9,10 +9,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $result = mysqli_query($link, $query) or die("Query failed");
 
     if ($result) {
-        echo json_encode(['status' => 'success', 'message' => 'Hotel updated successfully.']);
+        echo json_encode(['status' => 'success', 'message' => 'Client deleted successfully.']);
     } else {
         // mysqli_error($link) can provide more insight into why the query failed
-        echo json_encode(['status' => 'error', 'message' => 'Failed to update hotel.']);
+        echo json_encode(['status' => 'error', 'message' => 'Failed to delete client.']);
     }
 } else {
     http_response_code(405); // Method Not Allowed

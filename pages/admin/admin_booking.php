@@ -34,7 +34,7 @@
 
             $query = "SELECT * FROM booking b, client c WHERE b.client_id = c.client_id";
             if ($searchKey != null) {
-                $query .= " and (b.booking_number like '%$searchKey%' or c.client_username like '%$searchKey%' or c.client_name like '%$searchKey%')";
+                $query .= " and (b.booking_number like '%$searchKey%' or c.client_username like '%$searchKey%')";
             }
 
         	$result = mysqli_query($link, $query) or die("Query failed");
@@ -145,8 +145,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 console.log('Create form submitted');
                 document.getElementById('createModal').style.display = 'none';
-                document.querySelector('.alert').textContent = 'Success! Booking entry has been stored.';
-                showAlert();
+
+                var response = JSON.parse(xhr.responseText);
+                alertMessage = response.message;
+                alertFlag = response.status;
+                showAlert(alertFlag, alertMessage);
             } else {
                 console.error('Form submission failed: ', xhr.responseText);
             }
@@ -193,10 +196,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 console.log('Edit form submitted');
                 document.getElementById('editModal').style.display = 'none';
-                document.querySelector('.alert').textContent = 'Success! Booking entry has been edited.';
-                showAlert();
 
-                console.log(xhr.responseText);
+                var response = JSON.parse(xhr.responseText);
+                alertMessage = response.message;
+                alertFlag = response.status;
+                showAlert(alertFlag, alertMessage);
             } else {
                 console.error('Form submission failed: ', xhr.responseText);
             }
@@ -233,8 +237,11 @@ document.addEventListener('DOMContentLoaded', function() {
             if (xhr.status >= 200 && xhr.status < 300) {
 
                 document.getElementById('deleteModal').style.display = 'none';
-                document.querySelector('.alert').textContent = 'Success! Room entry has been deleted.';
-                showAlert();
+
+                var response = JSON.parse(xhr.responseText);
+                alertMessage = response.message;
+                alertFlag = response.status;
+                showAlert(alertFlag, alertMessage);
             } else {
                 console.error('Form submission failed: ', xhr.responseText);
             }
@@ -258,11 +265,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
 });  
 
-function showAlert(){
-    document.querySelector('.alert').style.opacity = '1';
-    setTimeout(function() {
-        document.querySelector('.alert').style.opacity = '0';
-    }, 2500);
+function showAlert(status, message){
+    
+    if(status){
+        document.querySelector('.alert.success').textContent = message;
+        document.querySelector('.alert.success').style.opacity = '1';
+        setTimeout(function() {
+            document.querySelector('.alert.success').style.opacity = '0';
+        }, 2500);
+    }else{
+        document.querySelector('.alert.fail').textContent = message;
+        document.querySelector('.alert.fail').style.opacity = '1';
+        setTimeout(function() {
+            document.querySelector('.alert.fail').style.opacity = '0';
+        }, 2500);
+    }
 }
 
 </script>

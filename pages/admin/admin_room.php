@@ -74,18 +74,25 @@
     <!--Alert Popup-->
     <div class="alert success">
             <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>  
-            <strong>Success!</strong> Indicates a successful or positive action.
     </div>
+    <div class="alert fail">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>  
+    </div>
+
+    <?php
+        $maxPax = 6;
+        $maxPrice = 1000;
+    ?>
 
     <!-- Modal Structure -->
     <div id="createModal" class="modal">
         <div class="modal-content">
             <h3 style="margin: 10px;">Create New Room Type</h3>
-            <form id="createForm" class="createForm" method="POST"> 
+            <form id="createForm" class="createForm" method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"> 
                 <input type="text" id="roomType" name="roomType" placeholder="Type">
                 <input type="text" id="roomDesc" name="roomDesc" placeholder="Description">
-                <input type="text" id="roomPax" name="roomPax" placeholder="Pax">
-                <input type="text" id="roomPrice" name="roomPrice" placeholder="Price">
+                <input type="number" min="1" max="<?php echo $maxPax?>" id="roomPax" name="roomPax" placeholder="Pax">
+                <input type="number" min="1" max="<?php echo $maxPrice?>" id="roomPrice" name="roomPrice" placeholder="Price">
                 <div class="button-container">
                     <button class="cancel-button"><i class="ri-close-line"></i></button>
                     <button id="create-button" type="submit" class="save-button"><i class="ri-save-3-line"></i></button>
@@ -97,12 +104,12 @@
     <div id="editModal" class="modal">
         <div class="modal-content">
             <h3 style="margin: 10px;">Edit Room Type</h3>
-            <form id="editForm" class="editForm" method="POST">
+            <form id="editForm" class="editForm" method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
                 <input type="hidden" id="hiddenroomID" name="roomID">    
                 <input type="text" id="roomType" name="roomType">
                 <input type="text" id="roomDesc" name="roomDesc">
-                <input type="text" id="roomPax" name="roomPax">
-                <input type="text" id="roomPrice" name="roomPrice">
+                <input type="number" min="1" max="<?php echo $maxPax?>" id="roomPax" name="roomPax">
+                <input type="number" min="1" max="<?php echo $maxPrice?>" id="roomPrice" name="roomPrice">
                 <div class="button-container">
                     <button class="cancel-button"><i class="ri-close-line"></i></button>
                     <button id="edit-button" type="submit" class="save-button"><i class="ri-save-3-line"></i></button>
@@ -143,8 +150,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 console.log('Create form submitted');
                 document.getElementById('createModal').style.display = 'none';
-                document.querySelector('.alert').textContent = 'Success! Room entry has been stored.';
-                showAlert();
+
+                var response = JSON.parse(xhr.responseText);
+                alertMessage = response.message;
+                alertFlag = response.status;
+                showAlert(alertFlag, alertMessage);
             } else {
                 console.error('Form submission failed: ', xhr.responseText);
             }
@@ -189,8 +199,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 console.log('Edit form submitted');
                 document.getElementById('editModal').style.display = 'none';
-                document.querySelector('.alert').textContent = 'Success! Room entry has been edited.';
-                showAlert();
+
+                var response = JSON.parse(xhr.responseText);
+                alertMessage = response.message;
+                alertFlag = response.status;
+                showAlert(alertFlag, alertMessage);
             } else {
                 console.error('Form submission failed: ', xhr.responseText);
             }
@@ -227,8 +240,11 @@ document.addEventListener('DOMContentLoaded', function() {
             if (xhr.status >= 200 && xhr.status < 300) {
 
                 document.getElementById('deleteModal').style.display = 'none';
-                document.querySelector('.alert').textContent = 'Success! Room entry has been deleted.';
-                showAlert();
+
+                var response = JSON.parse(xhr.responseText);
+                alertMessage = response.message;
+                alertFlag = response.status;
+                showAlert(alertFlag, alertMessage);
             } else {
                 console.error('Form submission failed: ', xhr.responseText);
             }
@@ -240,7 +256,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         xhr.send(formData);
     });
-    
+   
     // JavaScript to close the modal
     document.querySelectorAll('.cancel-button').forEach(button => {
         button.addEventListener('click', function(event) {
@@ -252,11 +268,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
 });  
 
-function showAlert(){
-    document.querySelector('.alert').style.opacity = '1';
-    setTimeout(function() {
-        document.querySelector('.alert').style.opacity = '0';
-    }, 2500);
+function showAlert(status, message){
+    
+    if(status){
+        document.querySelector('.alert.success').textContent = message;
+        document.querySelector('.alert.success').style.opacity = '1';
+        setTimeout(function() {
+            document.querySelector('.alert.success').style.opacity = '0';
+        }, 2500);
+    }else{
+        document.querySelector('.alert.fail').textContent = message;
+        document.querySelector('.alert.fail').style.opacity = '1';
+        setTimeout(function() {
+            document.querySelector('.alert.fail').style.opacity = '0';
+        }, 2500);
+    }
 }
 
 </script>

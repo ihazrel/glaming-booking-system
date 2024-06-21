@@ -9,6 +9,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $clientName = $_POST['clientName'] ?? 'NULL';
     $clientPhone = $_POST['clientPhone'] ?? 'NULL';
 
+    $search = "SELECT client_username FROM client";
+    $result = mysqli_query($link, $search) or die("Query failed");
+    while($row = mysqli_fetch_array($result)) {
+        if ($clientUsername == $row['client_username']) {
+            echo json_encode(['status' => false, 'message' => 'Failed to edit client! Username already exists.']);
+            exit;
+        }
+    }
 
     $query = "UPDATE client 
               SET client_username = '$clientUsername',
@@ -19,10 +27,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $result = mysqli_query($link, $query) or die("Query failed");
 
     if ($result) {
-        echo json_encode(['status' => 'success', 'message' => 'Hotel updated successfully.']);
+        echo json_encode(['status' => true, 'message' => 'Client edited succesfully.']);
     } else {
         // mysqli_error($link) can provide more insight into why the query failed
-        echo json_encode(['status' => 'error', 'message' => 'Failed to update hotel.']);
+        echo json_encode(['status' => false, 'message' => 'Failed to edit client.']);
     }
 } else {
     http_response_code(405); // Method Not Allowed
