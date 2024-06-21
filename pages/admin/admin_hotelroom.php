@@ -37,7 +37,7 @@
             if ($searchKey != null) {
                 $query .= " WHERE hr.hotelroom_number LIKE '%$searchKey%' or r.room_type like '%$searchKey%' or h.hotel_location like '%$searchKey%' or b.booking_number like '%$searchKey%'";
             }
-
+            $query .= " ORDER BY r.room_id";
         	$result = mysqli_query($link, $query) or die("Query failed");
         ?>
 
@@ -73,7 +73,9 @@
     <!--Alert Popup-->
     <div class="alert success">
             <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>  
-            <strong>Success!</strong> Indicates a successful or positive action.
+    </div>
+    <div class="alert fail">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>  
     </div>
 
     <!-- Modal Structure -->
@@ -142,8 +144,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 console.log('Create form submitted');
                 document.getElementById('createModal').style.display = 'none';
-                document.querySelector('.alert').textContent = 'Success! Room entry has been stored.';
-                showAlert();
+
+                var response = JSON.parse(xhr.responseText);
+                alertMessage = response.message;
+                alertFlag = response.status;
+                showAlert(alertFlag, alertMessage);
             } else {
                 console.error('Form submission failed: ', xhr.responseText);
             }
@@ -188,8 +193,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 console.log('Edit form submitted');
                 document.getElementById('editModal').style.display = 'none';
-                document.querySelector('.alert').textContent = 'Success! Hotel entry has been edited.';
-                showAlert();
+
+                var response = JSON.parse(xhr.responseText);
+                alertMessage = response.message;
+                alertFlag = response.status;
+                showAlert(alertFlag, alertMessage);
             } else {
                 console.error('Form submission failed: ', xhr.responseText);
             }
@@ -206,18 +214,18 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.delete').forEach(button => {
         button.addEventListener('click', function() {
 
-            const hotelID = this.getAttribute('data-id');
+            const hotelroomID = this.getAttribute('data-id');
 
-            document.querySelector('#deleteModal #delete-button').setAttribute('data-id', hotelID);
+            document.querySelector('#deleteModal #delete-button').setAttribute('data-id', hotelroomID);
 
             document.getElementById('deleteModal').style.display = 'block';
         });
     });
     document.querySelector('#deleteModal #delete-button').addEventListener('click', function() {
-        var hotelID = this.getAttribute('data-id');
+        var hotelroomID = this.getAttribute('data-id');
 
         var formData = new FormData();
-        formData.append('hotelID', hotelID);
+        formData.append('hotelroomID', hotelroomID);
 
         var xhr = new XMLHttpRequest();
         xhr.open("POST", "../../util/hotelroom/hotelroom_delete.php", true);
@@ -226,8 +234,11 @@ document.addEventListener('DOMContentLoaded', function() {
             if (xhr.status >= 200 && xhr.status < 300) {
 
                 document.getElementById('deleteModal').style.display = 'none';
-                document.querySelector('.alert').textContent = 'Success! Hotel entry has been deleted.';
-                showAlert();
+
+                var response = JSON.parse(xhr.responseText);
+                alertMessage = response.message;
+                alertFlag = response.status;
+                showAlert(alertFlag, alertMessage);
             } else {
                 console.error('Form submission failed: ', xhr.responseText);
             }
@@ -251,11 +262,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
 });  
 
-function showAlert(){
-    document.querySelector('.alert').style.opacity = '1';
-    setTimeout(function() {
-        document.querySelector('.alert').style.opacity = '0';
-    }, 2500);
+function showAlert(status, message){
+    
+    if(status){
+        document.querySelector('.alert.success').textContent = message;
+        document.querySelector('.alert.success').style.opacity = '1';
+        setTimeout(function() {
+            document.querySelector('.alert.success').style.opacity = '0';
+        }, 2500);
+    }else{
+        document.querySelector('.alert.fail').textContent = message;
+        document.querySelector('.alert.fail').style.opacity = '1';
+        setTimeout(function() {
+            document.querySelector('.alert.fail').style.opacity = '0';
+        }, 2500);
+    }
 }
 
 </script>
