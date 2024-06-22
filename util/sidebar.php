@@ -6,5 +6,6 @@
         <li><a href="./admin_hotel.php"><i class="ri-community-fill"></i>Hotel</a></li>
         <li><a href="./admin_client.php"><i class="ri-user-fill"></i>Client</a></li>
         <li><a href="./admin_room.php"><i class="ri-hotel-bed-fill"></i>Room Type</a></li>
+        <li><a href="../../util/logout.php" class="btn"><i class="ri-lock-fill"></i>Logout</a></li>
     </ul>
 </div>

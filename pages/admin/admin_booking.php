@@ -42,7 +42,7 @@
 
         <div class="content-table">
             <table>
-                <tr style="background-color: #b92d2d">
+                <tr id="head">
                     <th style="width: 7%;">No</th>
                     <th>Booking ID</th>
                     <th>Checkin</th>
@@ -135,6 +135,23 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelector('#createForm #create-button').addEventListener('click', function(event) {
         event.preventDefault();
 
+        var bookingNumber = document.querySelector('#editModal #bookingNumber').value;
+        var checkinDate = new Date(document.querySelector('#editModal #bookingCheckinDate').value);
+        var checkoutDate = new Date(document.querySelector('#editModal #bookingCheckoutDate').value);
+        var bookingAmount = document.querySelector('#editModal #bookingAmount').value;
+        var username = document.querySelector('#editModal #clientUsername').value;
+
+        if (bookingNumber == '' || document.querySelector('#editModal #bookingCheckinDate').value == '' || document.querySelector('#editModal #bookingCheckoutDate').value == '' || 
+            bookingAmount == '' || username == '') {
+            alert('Please fill in all fields');
+            return;
+        }
+
+        if (checkoutDate <= checkinDate) {
+            alert('Check-out date must be after check-in date.');
+            return;
+        }
+
         var formData = new FormData(document.getElementById('createForm'));
 
         var xhr = new XMLHttpRequest();
@@ -185,6 +202,14 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     document.querySelector('#editForm #edit-button').addEventListener('click', function(event) {
         event.preventDefault();
+
+        var checkinDate = new Date(document.querySelector('#editModal #bookingCheckinDate').value);
+        var checkoutDate = new Date(document.querySelector('#editModal #bookingCheckoutDate').value);
+
+        if (checkoutDate <= checkinDate) {
+            alert('Check-out date must be after check-in date.');
+            return;
+        }
 
         var formData = new FormData(document.getElementById('editForm'));
 

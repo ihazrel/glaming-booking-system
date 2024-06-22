@@ -7,10 +7,10 @@ nav{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: #b92d2d;
+    background-color: #4f0e70;
     transition: .4s;
     z-index: 1000;
-    box-shadow: 0 4px 6px -1px #902222;
+    box-shadow: 0 4px 6px -1px #000000;
 }
 
 nav .logo{
@@ -28,4 +28,18 @@ nav ul li a{
     font-size: 1.2em;
 	font-weight: 500;
     font-family: "Poppins", sans-serif;
+}
+li#book{
+    display: inline-flex; /* Changed to inline-flex to make it behave like a button */
+    align-items: center;
+    padding: 10px 20px; /* Add padding to make it look like a button */
+    background-color: #E19900; /* Bright background color for attention */
+    border: none; /* Optional: Add border if needed */
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Soft shadow for depth */
+    transition: background-color 0.3s, transform 0.2s; /* Smooth transition for hover effect */
+}
+li#book:hover{
+    background-color: #b27a00; /* Darker background color on hover */
+    transform: scale(1.05); /* Slightly bigger size on hover */
 }

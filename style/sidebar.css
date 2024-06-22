@@ -5,11 +5,12 @@
     z-index: 1;
     top: 0;
     left: 0;
-    background-color: #b92d2d;
+    background-color: #400c5b;
     overflow-x: hidden;
     padding-top: 20px;
 }
 .ac-sidebar ul{
+    height: 100%;
     list-style-type: none;
     padding: 90px 0 0 0;
 }
@@ -33,9 +34,13 @@
     margin-right:10%;
 }
 .ac-sidebar a:hover{
-    color: #000;
+    color: #dc9404;
 }
 .ac-sidebar a.active{
     background-color: #ffff;
     color: #000;
+}
+.ac-sidebar li:last-child {
+    margin-top: 20px; /* Add more space above the logout button */ /* Visually separate the logout button from other items */
+    padding-top: 20px;
 }

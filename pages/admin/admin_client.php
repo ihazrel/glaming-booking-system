@@ -42,7 +42,7 @@
 
         <div class="content-table">
             <table>
-                <tr style="background-color: #b92d2d">
+                <tr id="head">
                     <th style="width: 7%;">No</th>
                     <th>Username</th>
                     <th>Password</th>

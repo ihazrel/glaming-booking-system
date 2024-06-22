@@ -1,3 +1,4 @@
+<?php session_start()?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,22 +16,21 @@ include '../util/db_connect.php';
 $query="Select * from room order by  room_id Asc";
 $result = mysqli_query( $link,$query) or die("Query failed");	// SQL statement for checking
 ?>
-<?php include('../util/nav.php');?>
+<?php
+    if (isset($_SESSION["username"])) {
+        if ($_SESSION["role"] == "user") {
+            include('../util/nav_login_user.php');
+        } else {
+            include('../util/nav_login_admin.php');
+        }
+    } else {
+        include('../util/nav.php');
+    }
+?>
 
 	<div class="filter-container">
 		<form action="" method="post">
 			<div class="filter-bar">
-				<div class="filter-button">
-					<div class="ft-icon"><i class="ri-map-pin-line ri-2x"></i></div>
-					<div class="ft-choice">
-						<select name="destination" id="destination">
-							<option value="all">All</option>
-							<option value="johor">Johor</option>
-							<option value="penang">Penang</option>
-							<option value="pahang">Pahang</option>
-						</select>
-					</div>
-				</div>
 
 				<div class="filter-button">
 					<div class="ft-icon"><i class="ri-user-line ri-2x"></i></div>
@@ -44,17 +44,6 @@ $result = mysqli_query( $link,$query) or die("Query failed");	// SQL statement f
 					</div>
 				</div>
 
-				<div class="filter-button">
-					<div class="ft-icon"><i class="ri-hotel-bed-line ri-2x"></i></div>
-					<div class="ft-choice">
-						<select name="room-type" id="room-type">
-							<option value="all">All</option>
-							<option value="single">Single</option>
-							<option value="double">Double</option>
-							<option value="suite">Suite</option>
-						</select>
-					</div>
-				</div>
 				<input type="submit" value="Filter">
 			</div>
 		</form>
@@ -101,8 +90,6 @@ $result = mysqli_query( $link,$query) or die("Query failed");	// SQL statement f
 					</div>
 					<div class="room-desc-misc">
 						<?php echo $row['room_desc'];?>	
-						<br><br>
-						Book now for unmatched comfort, prime location, and outstanding service.
 					</div>
 					<div class="room-desc-book">
 						<button onclick="window.location.href='booking.php';">Book Now</button>
