@@ -32,7 +32,7 @@
                 </div>
             </div>
 
-            <div class="card">
+            <!-- <div class="card">
                 <div class="card-header"><i class="ri-wallet-fill ri-3x"></i></div>
                 <div class="card-content">
                     <h1><?php
@@ -41,7 +41,7 @@
                             echo mysqli_num_rows($result)?></h1>
                     <h3>Revenue</h3>
                 </div>
-            </div>
+            </div> -->
 
             <div class="card">
                 <div class="card-header"><i class="ri-user-fill ri-3x"></i></i></div>

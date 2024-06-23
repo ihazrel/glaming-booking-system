@@ -132,7 +132,7 @@ include '../util/db_connect.php';
                 <input type="text" name="checkinDate" id="checkinDate" hidden>
                 <input type="text" name="checkoutDate" id="checkoutDate" hidden>
                 <input type="number" name="total" id="total" hidden>
-                <input type="number" name="clientID" id="clientID" value="<?php echo $_SESSION['id']?>" hidden>
+                <input type="number" name="clientID" id="clientID" value="<?php echo !empty($_SESSION['id']) ? $_SESSION['id'] : '';?>" hidden>
                 <button class="book">Book Now</button>
             </form>
         </div>
@@ -241,13 +241,13 @@ document.addEventListener("DOMContentLoaded", function() {
                 console.log('Edit form submitted');
                 console.log(xhr.responseText);
 
-                // var response = JSON.parse(xhr.responseText);
-                // if (response.status) {
-                //     alert(response.message);
-                //     window.location.href = "../pages/booking.php";
-                // } else {
-                //     alert(response.message);
-                // }
+                var response = JSON.parse(xhr.responseText);
+                if (response.status) {
+                    alert(response.message);
+                    window.location.href = "../pages/booking.php";
+                } else {
+                    alert(response.message);
+                }
             } else {
                 console.error('Form submission failed: ', xhr.responseText);
             }
