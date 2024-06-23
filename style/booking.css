@@ -12,7 +12,7 @@ section{
 }
 
 .info-container{
-    width: 75%;
+    width: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -35,7 +35,7 @@ form input[type="submit"]{
     width: 10%;
     height: 40px;
     padding: 10px;
-    background-color: #b92d2d;
+    background-color: #4f0e70;
     color: #fff;
     font-size: .9em;
     font-weight: 600;
@@ -44,7 +44,19 @@ form input[type="submit"]{
     cursor: pointer;
 }
 form input[type="submit"]:hover{
-    background-color: #a52727;
+    background-color: #380b4f;
+}
+form button{
+    width: 10%;
+    height: 40px;
+    padding: 10px;
+    background-color: #4f0e70;
+    color: #fff;
+    font-size: .9em;
+    font-weight: 600;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 .info-bar, .info-date {
@@ -55,12 +67,13 @@ form input[type="submit"]:hover{
 
 .info-bar {
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: center;
     padding: 10px 25px;
     width: 100%;
     background-color: #ffff;
-    border: #b92d2d 3px solid;
+    border: #4f0e70 3px solid;
     border-radius: 5px;
+    gap: 20px;
 }
 .if-date{
     display: flex;
@@ -163,7 +176,7 @@ fieldset{
 .rc-bc-right button{
     width: 7em;
     height: 3em;
-    background-color: #b92d2d;
+    background-color: #4f0e70;
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -173,7 +186,7 @@ fieldset{
     transition: .1s;
 }
 .rc-bc-right button:hover{
-    background-color: #a52727;
+    background-color: #380b4f;
 }
 
 /* Booking Summary */
@@ -210,7 +223,7 @@ button.book{
     width: 100%;
     height: 40px;
     margin: 10px 0;
-    background-color: #b92d2d; /* Changed background color to green */
+    background-color: #4f0e70; /* Changed background color to green */
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -220,7 +233,7 @@ button.book{
 }
 
 button.book:hover{
-    background-color: #a52727; /* Darker shade of green on hover */
+    background-color: #380b4f; /* Darker shade of green on hover */
 }
 
 

@@ -19,6 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $row = mysqli_fetch_array($result);
 
     if ($row['client_username'] == $username && $row['client_password'] == $password) {
+        $_SESSION['id'] = $row['client_id'];
         $_SESSION['username'] = $row['client_username'];
         $_SESSION['role'] = 'user';
         header("location: ../pages/booking.php");
