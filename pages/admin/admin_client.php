@@ -194,10 +194,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.log('Edit form submitted');
                 document.getElementById('editModal').style.display = 'none';
 
-                var response = JSON.parse(xhr.responseText);
-                alertMessage = response.message;
-                alertFlag = response.status;
-                showAlert(alertFlag, alertMessage);
+                // var response = JSON.parse(xhr.responseText);
+                // alertMessage = response.message;
+                // alertFlag = response.status;
+                // showAlert(alertFlag, alertMessage);
+                console.log(xhr.responseText);
 
             } else {
                 console.error('Form submission failed: ', xhr.responseText);

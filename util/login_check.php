@@ -4,8 +4,8 @@ include './db_connect.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-    $username = $_POST['username'] ?? '';
-    $password = $_POST['password'] ?? '';
+    $username = isset($_POST['username']) ? $_POST['username'] : '';
+    $password = isset($_POST['password']) ? $_POST['password'] : '';
 
     if ($username == 'admin' && $password == 'admin') {
         $_SESSION['username'] = 'admin';
@@ -21,6 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($row['client_username'] == $username && $row['client_password'] == $password) {
         $_SESSION['id'] = $row['client_id'];
         $_SESSION['username'] = $row['client_username'];
+        $_SESSION['password'] = $row['client_password'];
         $_SESSION['role'] = 'user';
         header("location: ../pages/booking.php");
         exit();
