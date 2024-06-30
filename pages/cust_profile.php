@@ -1,6 +1,7 @@
 
 <?php
 	session_start();
+  $id = $_SESSION['id'];
 
 	if (!isset($_SESSION['password'])) {
     echo "<script type='text/javascript'>
@@ -10,8 +11,8 @@
     exit();
 }
 include '../util/db_connect.php';
-include('../util/nav.php');
-	
+include('../util/nav_login_user.php');
+
 	// Get the logged-in user's password from the session
   $password = $_SESSION['password'];
 	
@@ -36,7 +37,6 @@ include('../util/nav.php');
 	<link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet"/>
 </head>
 <body>
-  
     
     <div class="container">
       <div id="logo">
@@ -59,7 +59,6 @@ include('../util/nav.php');
           <table class="table">
             <thead>
               <tr>
-              <th>Profile</th>
                 <th>Username</th>
                 <th>password</th>
                 <th>Name</th>
@@ -77,7 +76,7 @@ include('../util/nav.php');
                         <td>" . $row["client_name"] . "</td>
                         <td>" . $row["client_phone"] . "</td>
                         <td>
-                            <a class='btn btn-primary btn-sm' href='edit_profile.php?id=" . $row["client_password"] . "'>Edit</a>
+                            <a class='btn btn-primary btn-sm' href='edit_profile.php?id=" . $id . "'>Edit</a>
                         </td>
                       </tr>";
             }

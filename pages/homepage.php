@@ -1,3 +1,4 @@
+<?php session_start();?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,8 +10,18 @@
 </head>
 
 <body>
-    <div class="hero">
-    <?php include('../util/nav.php');?>
+    <div class="hero">  
+    <?php
+        if (isset($_SESSION["username"])) {
+            if ($_SESSION["role"] == "user") {
+                include('../util/nav_login_user.php');
+            } else {
+                include('../util/nav_login_admin.php');
+            }
+        } else {
+            include('../util/nav.php');
+        }
+    ?>
         <video autoplay loop muted plays-inline class="back-video">
             <source src="../video/home-vid.mp4" type="video/mp4">
         </video>

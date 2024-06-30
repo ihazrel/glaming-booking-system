@@ -1,4 +1,7 @@
 <?php session_start()?>
+<script>
+var isLoggedIn = <?php echo isset($_SESSION['username']) ? 'true' : 'false'; ?>;
+</script>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -172,7 +175,7 @@ document.addEventListener("DOMContentLoaded", function() {
             return;
         }
 
-        if (promocode == 'SAYAKENALOWNER') {
+        if (promocode.toUpperCase() == 'SAYAKENALOWNER') {
             document.querySelector(".info-bar").setAttribute("data-discount", "20");
         }
         else {
@@ -229,6 +232,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
     document.querySelector("#bookForm .book").addEventListener("click", function() {
         event.preventDefault();
+
+        if (!isLoggedIn) {
+            alert('Please log in first.');
+            return;
+        }
 
         var formData = new FormData(document.getElementById('bookForm'));
 

@@ -18,7 +18,7 @@ $password = $_SESSION['password'];
     <link rel="stylesheet" href="../style/profile.css">
 </head>
 <body>
-<?php include('../util/nav_user.php'); ?>
+<?php include('../util/nav_login_user.php'); ?>
     
 <div class="container">
     <div id="profile">
