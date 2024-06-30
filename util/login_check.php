@@ -21,6 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($row['client_username'] == $username && $row['client_password'] == $password) {
         $_SESSION['id'] = $row['client_id'];
         $_SESSION['username'] = $row['client_username'];
+        $_SESSION['password'] = $row['client_password'];
         $_SESSION['role'] = 'user';
         header("location: ../pages/booking.php");
         exit();

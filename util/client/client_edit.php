@@ -3,11 +3,12 @@ include '../db_connect.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
-    $clientID = $_POST['clientID'] ?? '';
-    $clientUsername = $_POST['clientUsername'] ?? 'NULL';
-    $clientPassword = $_POST['clientPassword'] ?? 'NULL';
-    $clientName = $_POST['clientName'] ?? 'NULL';
-    $clientPhone = $_POST['clientPhone'] ?? 'NULL';
+    $clientID = isset($_POST['clientID']) ? $_POST['clientID'] : '';
+    $clientUsername = isset($_POST['clientUsername']) ? $_POST['clientUsername'] : 'NULL';
+    $clientPassword = isset($_POST['clientPassword']) ? $_POST['clientPassword'] : 'NULL';
+    $clientName = isset($_POST['clientName']) ? $_POST['clientName'] : 'NULL';
+    $clientPhone = isset($_POST['clientPhone']) ? $_POST['clientPhone'] : 'NULL';
+
 
     $search = "SELECT client_username, client_id FROM client";
     $result = mysqli_query($link, $search) or die("Query failed");
