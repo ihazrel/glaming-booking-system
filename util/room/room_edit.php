@@ -3,11 +3,11 @@ include '../db_connect.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
-    $roomID = $_POST['roomID'] ?? '';
-    $roomType = $_POST['roomType'] ?? '';
-    $roomDesc = $_POST['roomDesc'] ?? '';
-    $roomPax = $_POST['roomPax'] ?? '';
-    $roomPrice = $_POST['roomPrice'] ?? '';
+    $roomID = isset($_POST['roomID']) ? $_POST['roomID'] : '';
+    $roomType = isset($_POST['roomType']) ? $_POST['roomType'] : '';
+    $roomDesc = isset($_POST['roomDesc']) ? $_POST['roomDesc'] : '';
+    $roomPax = isset($_POST['roomPax']) ? $_POST['roomPax'] : '';
+    $roomPrice = isset($_POST['roomPrice']) ? $_POST['roomPrice'] : '';
 
     $query = "UPDATE room SET room_type = '$roomType', room_desc = '$roomDesc', room_pax = '$roomPax', room_price = '$roomPrice' WHERE room_id = '$roomID'";
     $result = mysqli_query($link, $query) or die("Query failed");

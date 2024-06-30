@@ -9,10 +9,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $clientName = $_POST['clientName'] ?? 'NULL';
     $clientPhone = $_POST['clientPhone'] ?? 'NULL';
 
-    $search = "SELECT client_username FROM client";
+    $search = "SELECT client_username, client_id FROM client";
     $result = mysqli_query($link, $search) or die("Query failed");
     while($row = mysqli_fetch_array($result)) {
-        if ($clientUsername == $row['client_username']) {
+        if ($clientUsername == $row['client_username'] && $clientID != $row['client_id']) {
             echo json_encode(['status' => false, 'message' => 'Failed to edit client! Username already exists.']);
             exit;
         }

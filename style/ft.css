@@ -1,0 +1,95 @@
+
+footer{
+    background-color: #000;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+    width: 100%;
+}
+.footer-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: stretch;
+    padding: 1.8em;
+}
+.cont-left{
+  width: 25%;
+  justify-content: end;
+  align-items: end;
+}
+.cl-picture > img{
+  width: 6em;
+}
+.cl-nav{
+  display: flex;
+  justify-content: center;
+  margin-top: 1em;
+}
+.cl-nav ul{
+  list-style-type: none;
+}
+.cl-nav ul li{
+  margin: .3em 1em;
+}
+.cl-nav ul li a{
+  text-decoration: none;
+  color: #fff;
+  font-size: 1.7em;
+  transition: 0.5s;
+}
+.cont-right{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: start;
+  width: 60%;
+}
+.cr-social{
+  display: flex;
+  justify-content: center;
+  margin-top: 1em;
+}
+.cr-social ul{
+  list-style-type: none;
+  display: flex;
+  padding: 0;
+}
+.cr-social ul li{
+  margin: 0 1em;
+}
+.cr-social a{
+  text-decoration: none;
+  color: #fff;
+  transition: .4s;
+}
+.cr-social a:hover{
+  color: #E19900;
+}
+.cr-info{
+  font-size: 1.2em;
+}
+.location{
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  margin-top: 1em;
+  gap: 20px;
+}
+.email{
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  margin-top: 1em;
+  gap: 20px;
+}
+
+.hr{
+  border: 1px solid #fff;
+  width: 1px;
+  min-height: 100%;
+}
+
+.copyright{
+  padding: 1em;
+}

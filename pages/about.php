@@ -7,7 +7,7 @@
     <title>About Hotel</title>
     <link rel="stylesheet" href="../style/nav.css?<?php echo time(); ?>">
     <link rel="stylesheet" href="../style/about.css">
-    <link rel="stylesheet" href="../style/footer.css">
+    <link rel="stylesheet" href="../style/ft.css">
 	<link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet"/>
 </head>
 <body>
@@ -38,6 +38,6 @@
             </div>
         </section>
     </div>
-<?php include('../util/footer.php');?>
+<?php include('../util/ft.php');?>
 </body>
 </html>

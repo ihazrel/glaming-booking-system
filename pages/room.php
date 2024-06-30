@@ -7,14 +7,14 @@
 	<title>Room</title>
 	<link rel="stylesheet" href="../style/nav.css?<?php echo time(); ?>">
 	<link rel="stylesheet" href="../style/room.css">
-    <link rel="stylesheet" href="../style/footer.css">
+	<link rel="stylesheet" href="../style/ft.css">
 	<link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet"/>
 </head>
 <body>
 <?php
 include '../util/db_connect.php';
 $query="Select * from room order by  room_id Asc";
-$result = mysqli_query( $link,$query) or die("Query failed");	// SQL statement for checking
+$result = mysqli_query( $link,$query) or die("Query failed");
 ?>
 <?php
     if (isset($_SESSION["username"])) {
@@ -101,7 +101,6 @@ $result = mysqli_query( $link,$query) or die("Query failed");	// SQL statement f
 		}
 		?>
 	</div>
-
-<?php include('../util/footer.php');?>
+	<?php include('../util/ft.php');?>
 </body>
 </html>

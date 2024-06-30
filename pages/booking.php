@@ -7,7 +7,7 @@
     <title>Booking form</title>
     <link rel="stylesheet" href="../style/nav.css?<?php echo time(); ?>">
     <link rel="stylesheet" href="../style/booking.css">
-    <link rel="stylesheet" href="../style/footer.css">
+    <link rel="stylesheet" href="../style/ft.css">
 	<link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet"/>
 </head>
 <body>
@@ -260,6 +260,6 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 </script>
-<?php include('../util/footer.php');?>
+<?php include('../util/ft.php');?>
 </body>
 </html>

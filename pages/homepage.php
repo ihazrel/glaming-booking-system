@@ -4,7 +4,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Page</title>
     <link rel="stylesheet" href="../style/homepage.css">
-    <link rel="stylesheet" href="../style/footer.css" >
+    <link rel="stylesheet" href="../style/ft.css">
+	<link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet"/>
 </head>
 
 <body>
@@ -66,18 +67,7 @@
             </div>
         </section>
     </div>
-
-    <footer>
-        <div class="footerContainer">
-            
-            <div class="footerNav">
-                <ul><li><a href="./index.html">Home</a></li>
-                    <li><a href="./about.html">About</a></li>
-                    <li><a href="">Contact Us</a></li>
-                </ul>
-            </div>
-        </div>
-    </footer>
     
+<?php include('../util/ft.php');?>
 </body>
 </html>
