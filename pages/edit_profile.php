@@ -51,22 +51,6 @@ if($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['id'])){
     <link rel="stylesheet" href="../style/cust_booking.css" />
 </head>
 <body>
-    <div class="container">
-        <div id="logo">
-            <h1 class="logo">Profile</h1>
-        </div>
-
-        <div class="leftbox">
-            <nav>
-                <a href="cust_profile.php" class="active">
-                    <i class="fa fa-user"></i>
-                </a>
-                <a href="cust_booking.php">
-                    <i class="fa fa-credit-card"></i>
-                </a>
-            </nav>
-        </div>
-
         <div class="rightbox">
             <div class="profile">
                 <?php if (isset($message)): ?>
