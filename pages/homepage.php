@@ -40,9 +40,7 @@
                         <div class="title">
                             <h2>Johor Bahru</h2>
                         </div>
-                        <p>
-                            Semua isi tentang hotel ini.
-                        </p>
+                        
                     </div>
                 </div>
                 <div class="card row">
@@ -50,9 +48,7 @@
                         <div class="title">
                             <h2>Pulau Pinang</h2>
                         </div>
-                        <p>
-                            Semua isi tentang hotel ini.
-                        </p>
+                        
                     </div>
                 </div>
                 <div class="card row">
@@ -60,9 +56,7 @@
                         <div class="title">
                             <h2>Pahang</h2>
                         </div>
-                        <p>
-                            Semua isi tentang hotel ini.
-                        </p>
+                        
                     </div>
                 </div>
                 <div class="card row">
@@ -70,9 +64,7 @@
                         <div class="title">
                             <h2>Selangor</h2>
                         </div>
-                        <p>
-                            Semua isi tentang hotel ini.
-                        </p>
+                    
                     </div>
                 </div>
             </div>

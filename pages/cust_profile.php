@@ -1,4 +1,3 @@
-
 <?php
 	session_start();
   $id = $_SESSION['id'];
@@ -35,25 +34,9 @@ include('../util/nav_login_user.php');
     <link rel="stylesheet" href="../style/booking.css">
     <link rel="stylesheet" href="../style/footer.css">
 	<link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="../style/cust_booking.css" />
 </head>
 <body>
-    
-    <div class="container">
-      <div id="logo">
-        <h1 class="logo">Profile</h1>
-      </div>
-
-      <div class="leftbox">
-        <nav>
-          <a href="cust_profile.php" class="active">
-            <i class="fa fa-user"></i>
-          </a>
-          <a href="cust_booking.php">
-            <i class="fa fa-credit-card"></i>
-          </a>
-        </nav>
-      </div>
-
       <div class="rightbox">
         <div class="profile">
           <table class="table">
