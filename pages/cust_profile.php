@@ -10,7 +10,6 @@
     exit();
 }
 include '../util/db_connect.php';
-include('../util/nav_login_user.php');
 
 	// Get the logged-in user's password from the session
   $password = $_SESSION['password'];
@@ -37,6 +36,18 @@ include('../util/nav_login_user.php');
   <link rel="stylesheet" href="../style/cust_booking.css" />
 </head>
 <body>
+<?php
+    if (isset($_SESSION["username"])) {
+        if ($_SESSION["role"] == "user") {
+            include('../util/nav_login_user.php');
+        } else {
+            include('../util/nav_login_admin.php');
+        }
+    } else {
+        include('../util/nav.php');
+    }
+?>
+
       <div class="rightbox">
         <div class="profile">
           <table class="table">
@@ -59,7 +70,7 @@ include('../util/nav_login_user.php');
                         <td>" . $row["client_name"] . "</td>
                         <td>" . $row["client_phone"] . "</td>
                         <td>
-                            <a class='btn btn-primary btn-sm' href='edit_profile.php?id=" . $id . "'>Edit</a>
+                            <a class='btn btn-primary btn-sm' href='edit_profile.php?id=" . $row["client_id"] . "'>Edit</a>
                         </td>
                       </tr>";
             }

@@ -22,7 +22,7 @@ $successMsg = isset($_GET['success']) ? $_GET['success'] : '';
     <div class="content">
         <div class="wrapper">
             <h1>Login</h1>
-            <form id="loginForm" method="post" action="../util/login_check.php">
+            <form id="loginForm" method="get" action="../util/login_check.php">
                 <input type="text" id="username" name="username" placeholder="Username">
                 <input type="password" id="password" name="password" placeholder="Password">
                 

@@ -2,10 +2,10 @@
 session_start();
 include './db_connect.php';
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
-    $username = isset($_POST['username']) ? $_POST['username'] : '';
-    $password = isset($_POST['password']) ? $_POST['password'] : '';
+    $username = isset($_GET['username']) ? $_GET['username'] : '';
+    $password = isset($_GET['password']) ? $_GET['password'] : '';
 
     if ($username == 'admin' && $password == 'admin') {
         $_SESSION['username'] = 'admin';

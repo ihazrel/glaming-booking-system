@@ -106,7 +106,7 @@ body{
 
 .container {
     max-width: 90%;
-    margin: 0 auto;
+    margin: 3em auto;
 }
 
 .container h1{
@@ -118,6 +118,8 @@ body{
 }
 
 .cards { 
+    align-items: center;
+    justify-content: center;
     flex-wrap: wrap;
     gap: 2em;
     padding: 2em 0;

@@ -38,7 +38,10 @@
     font-family: 'Roboto', sans-serif;
 }
 body{
-    background-color: #e2dddd;
+    background-color: #f9f4f4;
+}
+.body{
+    margin: 3em auto;
 }
 .heading{
     width:90%;
@@ -93,6 +96,12 @@ body{
 }
 .about-image:hover img{
     transform: scale(1.2);
+}
+.timeline-image{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
 }
 .about-content{
     flex: 1;

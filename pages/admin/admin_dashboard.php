@@ -1,3 +1,10 @@
+<?php
+session_start();
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
+    echo '<script>alert("You must be logged in as an admin to access this page."); window.location.href="../../index.php";</script>';
+    exit; // Stop further execution of the script
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -83,8 +90,13 @@
             <div class="card">
                 <div class="card-header"><h2 style="font-weight: bold;">Popular Room</h2></div>
                 <div class="card-content">
-                    <h1 style="font-size: 3rem;">Seaview Deluxe</h1>
-                    <h3>20 rooms</h3>
+                    <?php
+                        $query = "SELECT hr.room_id, r.room_type, COUNT(booking_id) AS booking_count FROM `hotel_room` hr, `room` r WHERE booking_id IS NOT NULL AND hr.room_id = r.room_id GROUP BY hr.room_id ORDER BY booking_count DESC LIMIT 1; ";
+                        $result = mysqli_query( $link,$query) or die("Query failed");
+                        $row = mysqli_fetch_assoc($result);
+                    ?>
+                    <h1 style="font-size: 3rem;"><?php echo $row['room_type']?></h1>
+                    <h2><?php echo $row['booking_count']?> rooms booked</h2>
                 </div>
             </div>
         </div>

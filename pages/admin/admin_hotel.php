@@ -1,4 +1,11 @@
-    <!DOCTYPE html>
+<?php
+session_start();
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
+    echo '<script>alert("You must be logged in as an admin to access this page."); window.location.href="../../index.php";</script>';
+    exit; // Stop further execution of the script
+}
+?>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
