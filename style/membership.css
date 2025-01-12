@@ -5,30 +5,62 @@
     font-family: 'Roboto', sans-serif;
 }
 body{
-    background-color: #f9f4f4;
+    background-color: #f4f4f4;
 }
 .tier-card-container {
     width: 100%;
     display: flex;
-    align-items: center;
+    align-items: start;
     justify-content: space-between;
-    flex-direction: column;
+    flex-direction: row;
     gap: 20px;
     padding: 60px 8%;
 }
 .tier-card{
-    background-color: antiquewhite;
+    background-color: #f4f4f4 ;
     padding: 16px;
     width: 80%; /* Adjust as needed */
+    gap: 16px;
     display: flex;
     margin: 0 auto;
     border-radius: 10px;
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    position: relative;
 }
-.tier-card h1{
-    margin: 16px 0;
+.tier-card#silver{
+    /*box-shadow: 0 4px 8px 0 #B0B7C3, 0 6px 20px 0 #B0B7C3;*/
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+    border: 2px solid #B0B7C3;
+}
+.tier-card#gold{
+    /* box-shadow: 0 4px 8px 0 #FFD700, 0 6px 20px 0 #FFD700; */
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+    border: 2px solid #FFD700;
+}
+.tier-card#platinum{
+    /* box-shadow: 0 4px 8px 0 #B0C4DE, 0 6px 20px 0 #B0C4DE; */
+    
+    border: 2px solid #B0C4DE;
+}
+.tier-card .title {
+    align-items: center; 
+    justify-content: center; 
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+.tier-card#silver .title{
+    color: #B0B7C3;
+}
+.tier-card#gold .title{
+    color: #FFD700;
+}
+.tier-card#platinum .title{
+    color: #B0C4DE;
 }
 
 .features {
@@ -46,10 +78,95 @@ body{
     width: 90%;
     padding: 0;
     margin: 0;
-    justify-content: space-between;
-    flex-direction: row;
+    gap: 10px;
+    align-items: start;
+    flex-direction: column;
+    flex-wrap: wrap;
+    list-style: none;
+    padding-left: 20px; /* Adds space for bullets */
+    margin: 0;
 }
 
 .features ul li {
-    margin-bottom: 8px;
+    flex: 1 1 calc(33.33% - 16px); /* Makes each item 1/3 of the row minus the gap */
+    box-sizing: border-box; /* Ensures padding doesn't affect width */
+    word-wrap: break-word; /* Wraps long words */
+    text-align: left; /* Align text to the left */
+    position: relative; /* To position the bullet point correctly */
+    padding-left: 20px; /* Space for custom bullet */
+}
+
+.features ul li::before {
+    content: '•'; /* Use a symbol or Unicode character for bullets */
+    color: #555;
+    font-size: 18px;
+    position: absolute;
+    left: 0; /* Align bullet to the left edge of the li */
+    top: 50%;
+    transform: translateY(-50%); /* Vertically center the bullet */
+}
+
+
+.tier-card button{
+    background-color: #f9f4f4;
+    color: #000;
+    padding: 8px 16px;
+    border: #000 2px solid;
+    border-radius: 5px;
+    width: 150px;
+    margin: 16px 0;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.tier-card button:hover{
+    background-color: #2e2e2e;
+    color: #fff;
+}
+
+/* Style for the popup background */
+.popup {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    justify-content: center;
+    align-items: center;
+}
+
+/* Style for the popup box */
+.popup-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+}
+
+.title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+/* Close button style */
+.close-btn {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.close-btn:hover {
+    background-color: darkred;
 }
