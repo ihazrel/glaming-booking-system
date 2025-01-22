@@ -12,10 +12,11 @@
 include '../util/db_connect.php';
 
 	// Get the logged-in user's password from the session
+  $id = $_SESSION['id'];
   $password = $_SESSION['password'];
 	
 	// Query for user details
-	$sql = "SELECT * FROM client WHERE client_password = '$password'";
+	$sql = "SELECT * FROM client WHERE client_id = '$id'";
 	$result = $link->query($sql);		
 
   if ($result === false) {
@@ -57,6 +58,7 @@ include '../util/db_connect.php';
                 <th>password</th>
                 <th>Name</th>
                 <th>Phone</th>
+                <th>Membership Tier</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -69,6 +71,7 @@ include '../util/db_connect.php';
                         <td>" . $row["client_password"] . "</td>
                         <td>" . $row["client_name"] . "</td>
                         <td>" . $row["client_phone"] . "</td>
+                        <td>" . $row["membership_tier"] . "</td>
                         <td>
                             <a class='btn btn-primary btn-sm' href='edit_profile.php?id=" . $row["client_id"] . "'>Edit</a>
                         </td>

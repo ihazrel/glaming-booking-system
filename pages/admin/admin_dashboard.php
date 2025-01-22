@@ -94,6 +94,10 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
                         $query = "SELECT hr.room_id, r.room_type, COUNT(booking_id) AS booking_count FROM `hotel_room` hr, `room` r WHERE booking_id IS NOT NULL AND hr.room_id = r.room_id GROUP BY hr.room_id ORDER BY booking_count DESC LIMIT 1; ";
                         $result = mysqli_query( $link,$query) or die("Query failed");
                         $row = mysqli_fetch_assoc($result);
+                        
+                        if (mysqli_num_rows($result) == 0) {
+                            $row = array('room_type' => 'No bookings yet', 'booking_count' => 0);
+                        }
                     ?>
                     <h1 style="font-size: 3rem;"><?php echo $row['room_type']?></h1>
                     <h2><?php echo $row['booking_count']?> rooms booked</h2>

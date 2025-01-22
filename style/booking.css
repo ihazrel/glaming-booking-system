@@ -12,7 +12,7 @@ section{
 }
 
 .info-container{
-    width: 50%;
+    width: 75%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -21,6 +21,19 @@ section{
 }
 form{
     width: 100%;
+}
+form select, form input {
+    width: 100%;
+    height: 40px;
+    padding: 10px;
+    background-color: #fff;
+    color: #000;
+    font-size: .9em;
+    font-weight: 600;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    cursor: pointer;
 }
 form input{
     width: 100%;
@@ -57,6 +70,9 @@ form button{
     border: none;
     border-radius: 5px;
     cursor: pointer;
+}
+form button:hover{
+    background-color: #380b4f;
 }
 
 .info-bar, .info-date {
@@ -190,6 +206,11 @@ fieldset{
 }
 
 /* Booking Summary */
+.bs-info {
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+}
 .bs-info h2{
     margin: 4% 0 7% 0;
 }
@@ -201,6 +222,15 @@ fieldset{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+}
+.member-discount{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: start;
+    background-color: #e1c999;
+    border-radius: 10px;
+    padding: 3.5%;
 }
 .confirm-discount{
     display: flex;
@@ -216,7 +246,6 @@ fieldset{
     flex-direction: row;
     justify-content: space-between;
     align-items: start;
-    margin: 5% 0;
 }
 
 button.book{

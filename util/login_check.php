@@ -23,6 +23,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         $_SESSION['username'] = $row['client_username'];
         $_SESSION['password'] = $row['client_password'];
         $_SESSION['role'] = 'user';
+        $_SESSION['tier'] = $row['membership_tier'];
+
         header("location: ../pages/booking.php");
         exit();
     } else {

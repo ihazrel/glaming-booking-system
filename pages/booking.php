@@ -1,4 +1,14 @@
-<?php session_start()?>
+<?php session_start(); 
+include '../util/db_connect.php';
+
+    $id = $_SESSION['id'];
+
+    $query = "SELECT `membership_tier` FROM `client` WHERE `client_id` = '" . $id . "'";
+    $result = mysqli_query($link, $query);
+    $row = mysqli_fetch_array($result);
+
+    $_SESSION['tier'] = $row['membership_tier'];
+?>
 <script>
 var isLoggedIn = <?php echo isset($_SESSION['username']) ? 'true' : 'false'; ?>;
 </script>
@@ -12,7 +22,8 @@ var isLoggedIn = <?php echo isset($_SESSION['username']) ? 'true' : 'false'; ?>;
     <link rel="stylesheet" href="../style/booking.css">
     <link rel="stylesheet" href="../style/ft.css">
 	<link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet"/>
-</head>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    </head>
 <body>
 <?php
 include '../util/db_connect.php';
@@ -30,6 +41,19 @@ include '../util/db_connect.php';
     <div class="info-container">
         <form id="infoForm" action="" method="post">
             <div class="info-bar" data-discount="">
+            <div class="info-field">
+                    <fieldset>
+                        <label>Location</label>
+                        <select name="hotelLocation" id="hotelLocation">
+                            <option value="all">All</option>
+                            <option value="selangor">Selangor</option>
+                            <option value="pahang">Pahang</option>
+                            <option value="johor">Johor</option>
+                            <option value="pulau pinang">Pulau Pinang</option>
+                        </select>
+                    </fieldset>
+                </div>
+
                 <div class="info-field" id="date">
                     <fieldset id="date">
                         <label>Select dates</label>
@@ -65,43 +89,25 @@ include '../util/db_connect.php';
               JOIN hotel h ON hr.hotel_id = h.hotel_id 
               JOIN room r ON hr.room_id = r.room_id 
               LEFT JOIN booking b ON hr.booking_id = b.booking_id
-              WHERE hr.booking_id IS NULL
-              ORDER BY r.room_id";
+              WHERE hr.booking_id IS NULL";
+    
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $hotelLocation = isset($_POST['hotelLocation']) ? $_POST['hotelLocation'] : 'all';
+        if ($hotelLocation != 'all') {
+            $query .= " AND h.hotel_location = '$hotelLocation'";
+        }
+
+
+    }
+
+    $query .= " ORDER BY h.hotel_location, h.hotel_name, r.room_type, r.room_price";
+
     $result = mysqli_query($link, $query);
     ?>
 
     <div class="book-container">
         <div class="book-room">
-
-            <?php while($row = mysqli_fetch_array($result)){?>
-            <div class="room-container">
-                <div class="rc-head">
-                    <div class="rc-h-image"><img src="../pic/suite.png" alt="Lorem Ipsum"></div>
-                    <div class="rc-h-desc">
-                        <h2><?php echo $row['room_type']?></h2>
-                        <p><?php echo $row['room_pax']?> people | Lorem ipsum </p>
-                    </div>
-                </div>
-                <div class="rc-body">
-                    <div class="rc-b-choice">
-                        <div class="rc-bc-title">
-                            <h2><?php echo $row['room_number']?></h2>
-                            <h4><?php echo $row['hotel_name']?> | <?php echo $row['hotel_location']?> Branch</h4>
-                        </div>
-                        <div class="rc-bc-right">
-                            <div class="rc-bc-price">
-                                <p>MYR<?php echo $row['room_price']?> night</p>
-                            </div>
-                            <button id="select-button" data-id="<?php echo $row['hotelroom_id']?>" data-number="<?php echo $row['room_number']?>" data-type="<?php echo $row['room_type']?>" 
-                                    data-price="<?php echo $row['room_price']?>" data-size="<?php echo $row['room_pax']?>" data-total="">
-                                <span>Select</span>
-                            </button> 
-                        </div>                       
-                    </div>
-                </div>
-            </div>
-            <?php } ?>
-
+            
         </div>
 
         <div class="book-summary">
@@ -121,6 +127,10 @@ include '../util/db_connect.php';
             <hr>
             
             <div class="bs-info" id="confirm">
+                <div class="member-discount">
+                    <h4>Member discount</h4>
+                    <p>MYR 0.00</p>
+                </div>
                 <div class="confirm-discount">
                     <h4>Discount</h4>
                     <p>MYR 0.00</p>
@@ -143,92 +153,142 @@ include '../util/db_connect.php';
 	
 </section>
 <script>
-var dateRangeInDays = 1;
+var membershipDiscount = 0;
 
-function updateTotalRoomPrice(roomPrice, discount) {
-    var price = (roomPrice !== 0) ? roomPrice : 0;
-    var totalRoomPrice = price * dateRangeInDays ;
-    var discountAmount = totalRoomPrice * (discount / 100);
-    var totalPriceDiscount = totalRoomPrice - discountAmount;
+$(document).ready(function () {
+    console.log('<?php echo isset($_SESSION['tier']) ? $_SESSION['tier'] : 'null'; ?>');
 
-    console.log(roomPrice, dateRangeInDays, discount, discountAmount, totalRoomPrice, totalPriceDiscount);
+    // Function to fetch filtered data
+    function fetchRooms() {
+        const location = $('#hotelLocation').val();
+        $.ajax({
+            url: '../util/fetchRoom.php', // URL of the PHP script
+            type: 'POST',
+            data: { hotelLocation: location },
+            success: function (data) {
+                $('.book-room').html(data); // Populate room container
+            },
+            error: function (xhr, status, error) {
+                console.error('Error:', error);
+            }
+        });
+    }
 
-    document.querySelector(".bs-info#confirm .confirm-discount p").textContent = '- MYR ' + discountAmount.toFixed(2);
-    document.querySelector(".bs-info#confirm .confirm-price h3:nth-of-type(2)").textContent = 'MYR ' + totalPriceDiscount.toFixed(2) ;
-    document.querySelector(".bs-info#confirm .confirm-price h3:nth-of-type(2)").setAttribute("data-total", totalPriceDiscount);
+    // Fetch rooms when the page loads
+    fetchRooms();
 
-    document.querySelector("input#total").value = totalPriceDiscount;
-}
+    // Fetch rooms on dropdown change
+    $('#hotelLocation').change(function () {
+        fetchRooms();
+    });
 
-document.addEventListener("DOMContentLoaded", function() {
-
-    // info filter button
-    document.querySelector("form#infoForm button#submit-button").addEventListener("click", function(event) {
+    $("form#infoForm button#submit-button").on("click", function (event) {
         event.preventDefault();
 
-        var checkinDate = new Date(document.querySelector("Form#infoForm input[name='checkinDate']").value);
-        var checkoutDate = new Date(document.querySelector("Form#infoForm input[name='checkoutDate']").value);  
-        var promocode = document.querySelector("Form#infoForm input[name='promocode']").value;
+        var checkinDate = new Date($("form#infoForm input[name='checkinDate']").val());
+        var checkoutDate = new Date($("form#infoForm input[name='checkoutDate']").val());
+        var promocode = $("form#infoForm input[name='promocode']").val();
 
         if (checkoutDate <= checkinDate) {
             alert('Check-out date must be after check-in date.');
             return;
         }
 
-        if (promocode.toUpperCase() == 'SAYAKENALOWNER') {
-            document.querySelector(".info-bar").setAttribute("data-discount", "20");
-        }
-        else {
-            document.querySelector(".info-bar").setAttribute("data-discount", "0");
-        }
-
-        var discount = document.querySelector(".info-bar").getAttribute("data-discount");
+        var discount = promocode.toUpperCase() === 'SAYAKENALOWNER' ? "20" : "0";
+        $(".info-bar").attr("data-discount", discount);
 
         var dateRangeInMilliseconds = checkoutDate.getTime() - checkinDate.getTime();
         dateRangeInDays = dateRangeInMilliseconds / (1000 * 60 * 60 * 24);
 
         var formattedCheckinDate = checkinDate.toLocaleDateString("en-US", { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
         var formattedCheckoutDate = checkoutDate.toLocaleDateString("en-US", { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });
-        var fullDateRange = formattedCheckinDate + ' – ' + formattedCheckoutDate;
-        
-        document.querySelector(".bs-info#info p:nth-of-type(2)").textContent = dateRangeInDays + ' nights';
+        var fullDateRange = `${formattedCheckinDate} – ${formattedCheckoutDate}`;
 
-        document.querySelector(".bs-info #date").textContent = fullDateRange;
-        
-        var roomPrice = document.querySelector(".bs-info#price .room-details").getAttribute("data-price");
+        $(".bs-info#info p:nth-of-type(2)").text(`${dateRangeInDays} nights`);
+        $(".bs-info #date").text(fullDateRange);
+
+        var roomPrice = $(".bs-info#price .room-details").data("price");
         updateTotalRoomPrice(roomPrice, discount);
 
-        document.querySelector("input#checkinDate").value = checkinDate.toISOString().split('T')[0];
-        document.querySelector("input#checkoutDate").value = checkoutDate.toISOString().split('T')[0];
+        $("input#checkinDate").val(checkinDate.toISOString().split('T')[0]);
+        $("input#checkoutDate").val(checkoutDate.toISOString().split('T')[0]);
     });
 
-    // room selection button
-    document.querySelectorAll(".book-room #select-button").forEach(button => {
-        button.addEventListener("click", function() {
+    $(document).on("click", ".room-card", function() {
+        var roomID = $(this).data("room-id");
+        var roomNumber = $(this).data("room-number");
+        var hotelName = $(this).data("hotel-name");
+        var roomType = $(this).data("room-type");
+        var roomPrice = $(this).data("room-price");
 
-            var roomID = this.getAttribute("data-id");
-            var roomNumber = this.getAttribute("data-number");
-            var roomType = this.getAttribute("data-type");
-            var roomPrice = this.getAttribute("data-price");
-            var roomSize = this.getAttribute("data-size");
+        $(".bs-info#info h2").text(`${hotelName} - Room ${roomNumber}`);
+        $(".bs-info#price h3").text(`MYR ${roomPrice}`);
+        $(".bs-info#price .room-details p").text(roomType);
+        $(".bs-info#price .room-details").attr("data-price", roomPrice);
 
-            var discount = document.querySelector(".info-bar").getAttribute("data-discount");
+        $("input#roomID").val(roomID);
 
-            updateTotalRoomPrice(roomPrice, discount);
-
-            document.querySelector(".bs-info#info h2").textContent = roomNumber;
-
-            document.querySelector(".bs-info#price h3").textContent = roomType;
-            document.querySelector(".bs-info#price p").textContent = 'MYR ' + roomPrice + ' per night';
-            document.querySelector(".bs-info#price .room-details").setAttribute("data-price", roomPrice);
-
-            var totalRoomPrice = roomPrice * dateRangeInDays;
-            document.querySelector(".bs-info#confirm .confirm-price h3:nth-of-type(2)").textContent = 'MYR ' + totalRoomPrice.toFixed(2) ;
-
-            document.querySelector("input#roomID").value = roomID;
-
-        });
+        updateTotalRoomPrice(roomPrice, $(".info-bar").attr("data-discount"));
     });
+
+    $(document).on("click", ".room-container #select-button", function () { 
+        console.log('MEOW');
+
+        var roomID = $(this).data("id");
+        var roomNumber = $(this).data("number");
+        var roomType = $(this).data("type");
+        var roomPrice = $(this).data("price");
+        var roomSize = $(this).data("size");
+
+        var discount = $(".info-bar").data("discount");
+
+        $(".bs-info#info h2").text(roomNumber);
+        $(".bs-info#price h3").text(roomType);
+        $(".bs-info#price p").text(`MYR ${roomPrice} per night`);
+        $(".bs-info#price .room-details").data("price", roomPrice);
+
+        var totalRoomPrice = roomPrice * dateRangeInDays;
+        $(".bs-info#confirm .confirm-price h3:nth-of-type(2)").text(`MYR ${totalRoomPrice.toFixed(2)}`);
+
+        $("input#roomID").val(roomID);
+
+        updateTotalRoomPrice(roomPrice, discount);
+    });
+
+    <?php
+    if (isset($_SESSION['tier'])) {
+        if ($_SESSION['tier'] == 'platinum') {
+            echo 'membershipDiscount = 20;';
+        } else if ($_SESSION['tier'] == 'gold') {
+            echo 'membershipDiscount = 15;';
+        } else if ($_SESSION['tier'] == 'silver') {
+            echo 'membershipDiscount = 10;';
+        } else {
+            echo 'membershipDiscount = 0;';
+        }
+    } else {
+        echo 'membershipDiscount = 0;';
+    }
+    ?>
+});
+
+var dateRangeInDays = 1;
+
+function updateTotalRoomPrice(roomPrice, discount) {
+    var price = (roomPrice !== 0) ? roomPrice : 0;
+    var totalRoomPrice = price * dateRangeInDays ;
+    var membershipDiscountAmount = totalRoomPrice * (membershipDiscount / 100);
+    var additionalDiscountAmount = totalRoomPrice * (discount / 100);
+
+    var totalPriceDiscount = totalRoomPrice - membershipDiscountAmount - additionalDiscountAmount;
+
+    document.querySelector(".bs-info#confirm .member-discount p").textContent = '- MYR ' + membershipDiscountAmount.toFixed(2);
+    document.querySelector(".bs-info#confirm .confirm-discount p").textContent = '- MYR ' + additionalDiscountAmount.toFixed(2);
+    document.querySelector(".bs-info#confirm .confirm-price h3:nth-of-type(2)").textContent = 'MYR ' + totalPriceDiscount.toFixed(2) ;
+    document.querySelector(".bs-info#confirm .confirm-price h3:nth-of-type(2)").setAttribute("data-total", totalPriceDiscount);
+
+    document.querySelector("input#total").value = totalPriceDiscount;
+}
 
     document.querySelector("#bookForm .book").addEventListener("click", function() {
         event.preventDefault();
@@ -266,7 +326,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
         xhr.send(formData);
     });
-});
 </script>
 <?php include('../util/ft.php');?>
 </body>
